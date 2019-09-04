@@ -1,0 +1,183 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+
+body {
+  display: block;
+}
+
+.navbar-main {
+  position: sticky;
+  top: 0;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar li a {
+  margin: 2px;
+  padding: 5px;
+  text-decoration: none;
+  background: white;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.navbar li a:hover {
+  background: rgb(200, 200, 200);
+}
+
+.navbar li a:active {
+  background: rgb(200, 200, 200);
+  text-decoration: underline;
+}
+
+.navbar li a:visited {
+  color: black;
+}
+
+.main-header {
+  height: 80vh;
+  background: gray;
+  text-align: center;
+}
+
+.site-logo {
+  margin-top: 45vh;
+  text-align: right;
+}
+
+.site-logo h1 {
+  font-size: 4vw;
+}
+
+.site-moto {
+  text-align: right;
+}
+
+.site-moto h3 {
+  width: 50%;
+  float: right;
+  font-size: 90%;
+}
+
+.main-content {
+  background: red;
+  text-align: center;
+  padding: 4vh 0vh 4vh 0vh;
+}
+
+.home-feed {
+  background: rgb(179, 179, 179);
+  border-radius: 4px;
+  color: black;
+}
+
+.post-title h1 {
+  font-weight: bolder;
+  font-family: serif;
+  margin: 0;
+}
+
+.post-title h4 {
+  font-family: fantasy;
+  font-weight: 100;
+  font-size: 80%;
+}
+
+.post-content {
+  font-family: times;
+  padding: 4vh 0vh 3vh 0vh;
+}
+
+.post-content img {
+  max-width: 95%;
+  min-width: 95%;
+  object-fit: contain;
+}
+
+.post-content p {
+  text-align: left;
+  padding: 2% 10% 0% 10%;
+}
+
+.post-footer {
+  display: inline;
+}
+
+.post-footer .social {
+  display: inline-block;
+  float: right;
+}
+
+.post-footer .comments {
+  display: inline-block;
+  float: right;
+}
+
+.site-pagination ul {
+  justify-content: center;
+}
+
+.main-footer {
+  background: blue;
+  padding: 20px;
+}
+
+.navbar-footer ul{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.navbar-footer ul li{
+  list-style-type: none;
+  display: inline;
+}
+.navbar-footer li a{
+  color: white;
+  text-decoration: none;
+}
+.navbar-footer li a:hover{
+  color: white;
+  border-bottom: 4px solid white;
+  border-radius: 2px;
+}
+.navbar-footer li a:active{
+  color: black;
+}
+.navbar-footer li:visited{
+  color: white;
+}
+
+.main-footer-instagram{
+  margin-top: 20px;
+  background: gray;
+  height: 30vh;
+}
+
+@media screen and (max-width: 960px) {
+  .navbar ul {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+  }
+
+  .navbar ul li {
+    display: block;
+  }
+
+  .navbar li a {
+    display: block;
+    text-decoration: none;
+    background: white;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
+}
