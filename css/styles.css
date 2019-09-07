@@ -2,7 +2,6 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  border: 1px solid transparent;
 }
 
 body {
@@ -14,7 +13,18 @@ body {
   top: 0;
 }
 
-.navbar ul li {
+.off-canvas .off-canvas-sidebar-show {
+  padding: 0;
+  margin: 0;
+}
+
+.navbar ul {
+  display: inline;
+  margin: 0;
+  padding: 10px;
+}
+
+.navbar li {
   display: inline;
 }
 
@@ -41,14 +51,14 @@ body {
   color: black;
 }
 
-.main-header {
+.header-main {
   height: 80vh;
   background: gray;
   text-align: center;
 }
 
 .site-logo {
-  margin-top: 45vh;
+  padding-top: 45vh;
   text-align: right;
 }
 
@@ -66,16 +76,14 @@ body {
   font-size: 90%;
 }
 
-.main-content {
+.content-main {
   background: red;
   text-align: center;
   padding: 4vh 0vh 4vh 0vh;
 }
 
-.home-feed {
-  background: rgb(179, 179, 179);
-  border-radius: 4px;
-  color: black;
+.post-feed {
+  background: rgb(180, 180, 180);
 }
 
 .post-title h1 {
@@ -107,17 +115,17 @@ body {
 }
 
 .post-footer {
-  display: inline;
-}
-
-.post-footer .social {
-  display: inline-block;
-  float: right;
+  text-align: right;
 }
 
 .post-footer .comments {
-  display: inline-block;
-  float: right;
+  display: inline;
+  border: 2px solid blue;
+}
+
+.post-footer .social {
+  display: inline;
+  border: 2px solid red;
 }
 
 .site-pagination ul {
@@ -129,36 +137,106 @@ body {
   padding: 20px;
 }
 
-.navbar-footer ul{
+.navbar-footer ul {
   margin: 0;
   padding: 0;
   text-align: center;
 }
-.navbar-footer ul li{
+
+.navbar-footer ul li {
   list-style-type: none;
   display: inline;
+  padding: 0px 10px 0px 10px;
 }
-.navbar-footer li a{
+
+.navbar-footer li a {
   color: white;
   text-decoration: none;
 }
-.navbar-footer li a:hover{
+
+.navbar-footer li a:hover {
   color: white;
-  border-bottom: 4px solid white;
-  border-radius: 2px;
+  border-bottom: 1px solid white;
 }
-.navbar-footer li a:active{
+
+.navbar-footer li a:active {
   color: black;
 }
-.navbar-footer li:visited{
+
+.navbar-footer li:visited {
   color: white;
 }
 
-.main-footer-instagram{
+.main-footer-instagram {
   margin-top: 20px;
   background: gray;
   height: 30vh;
 }
+
+.about-section {
+  background-image: url(https://ak6.picdn.net/shutterstock/videos/12686396/thumb/3.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  padding: 20px;
+}
+
+.about-feed {
+  background: rgba(200, 200, 200, 0.5) ;
+
+}
+
+.about-feed >* {
+  border: 1px solid blue;
+  color: black;
+  padding: 0;
+  margin: 0;
+}
+
+
+.about-content{
+  padding: 20px;
+}
+.about-content >*{
+border: 2px solid black;
+}
+
+.about-text{
+  text-align:justify;
+  padding: 30px;
+}
+
+
+.about-profile >*{
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+.about-profile img{
+  width: 100%;
+}
+
+.about-profile #name{
+  font-size: 1.2rem ;
+  font-style: italic;
+  font-family: sans-serif;
+}
+
+.about-profile #phone{
+  font-style: italic;
+  font-family:sans-serif;
+}
+
+.about-profile #email{
+  font-style: italic;
+  font-family:sans-serif;
+  color: black;
+}
+.about-profile #email a{
+  color: black;
+}
+
 
 @media screen and (max-width: 960px) {
   .navbar ul {
