@@ -1,0 +1,488 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    display: block;
+}
+
+.navbar-main {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.off-canvas .off-canvas-sidebar-show {
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar li {
+    display: inline-block;
+    margin: 0px;
+    padding: 5px 2px 5px 2px;
+    
+}
+
+.navbar li a {
+    margin: 0px;
+    padding: 5px;
+    text-decoration: none;
+    background: white;
+    color: black;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.navbar li a:hover {
+    background: rgb(200, 200, 200);
+}
+
+.navbar li a:active {
+    background: rgb(200, 200, 200);
+    text-decoration: underline;
+}
+
+.navbar li a:visited {
+    color: black;
+}
+
+.header-main {
+    height: 80vh;
+    text-align: center;
+    background-image: url(https://i.pinimg.com/originals/bc/c0/86/bcc0860537b4030e6e62fa0a38ef907b.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.site-logo {
+    text-align: right;
+    padding: 45vh 0px 0px 0px;
+}
+
+.site-logo h1 {
+    font-size: 4vw;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+.site-moto {
+    padding: 0;
+    text-align: right;
+    color: black;
+}
+
+.site-moto h3 {
+    width: 50%;
+    float: right;
+    font-size: 90%;
+    padding: 0;
+    margin: 20px 0px 0px 0px;
+}
+
+.content-main {
+    text-align: center;
+    padding: 4vh 0vh 4vh 0vh;
+}
+
+.post-content {
+    background: rgba(130, 130, 130, 0.2);
+}
+
+.post-title h1 {
+    font-weight: bolder;
+    font-family: serif;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.post-title h4 {
+    font-family: fantasy;
+    font-weight: 100;
+    font-size: 80%;
+}
+
+.post-feed {
+    font-family: times;
+    padding: 4vh 0vh 3vh 0vh;
+}
+
+.post-feed img {
+    max-width: 95%;
+    min-width: 95%;
+    object-fit: contain;
+}
+
+.post-feed p {
+    text-align: left;
+    padding: 2% 10% 0% 10%;
+}
+
+.post-footer {
+    text-align: right;
+    border-top: 1px solid black;
+    padding: 4px;
+}
+
+.post-footer .comments {
+    display: inline;
+    padding: 4px;
+}
+
+.comments p {
+    display: inline;
+}
+
+.post-footer .social {
+    display: inline;
+    padding: 4px;
+}
+
+.main-footer {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+}
+
+.navbar-footer ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.navbar-footer ul li {
+    list-style-type: none;
+    display: inline;
+    padding: 0px 10px 0px 10px;
+}
+
+.navbar-footer li a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-footer li a:hover {
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+.navbar-footer li a:active {
+    color: black;
+}
+
+.navbar-footer li:visited {
+    color: white;
+}
+
+.main-footer-instagram {
+    margin-top: 20px;
+    background: gray;
+    height: 30vh;
+}
+
+.about-section {
+    background-image: url(https://ak6.picdn.net/shutterstock/videos/12686396/thumb/3.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: white;
+    padding: 20px;
+}
+
+.about-content {
+    background: rgba(200, 200, 200, 0.5);
+}
+
+.about-content>* {
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+.about-feed {
+    padding: 20px;
+}
+
+.about-text {
+    text-align: justify;
+    padding: 30px;
+}
+
+.about-profile>* {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.about-profile img {
+    width: 100%;
+}
+
+.about-profile #name {
+    font-size: 1.2rem;
+    font-style: italic;
+    font-family: sans-serif;
+}
+
+.about-profile #phone {
+    font-style: italic;
+    font-family: sans-serif;
+}
+
+.about-profile #email {
+    font-style: italic;
+    font-family: sans-serif;
+    color: black;
+}
+
+.about-profile #email a {
+    color: black;
+}
+
+.contact-content {
+    background-color: rgba(130, 130, 130, 0.2);
+    padding: 20px;
+}
+
+.contact-content form div {
+    display: inline-block;
+}
+
+.project-section {
+    background: rgba(130, 130, 130, 0.2);
+}
+
+.projects-content {
+    background: white;
+    overflow: hidden;
+    border-radius: 8px 8px 3px 3px;
+    margin: 3% 4.125% 3% 4.125%;
+    padding: 0%;
+}
+
+.projects-header {
+    display: block;
+    height: 20vh;
+    text-align: center;
+    background-image: url(https://i.pinimg.com/originals/bc/c0/86/bcc0860537b4030e6e62fa0a38ef907b.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 25%;
+    filter: grayscale(60%);
+    z-index: -1;
+}
+
+.projects-header:hover {
+    filter: grayscale(0%);
+}
+
+.projects-header #title {
+    padding: 0px 0px;
+    margin: 0px 0px;
+    font-size: 24px;
+    color: black;
+    background-color: rgba(200, 200, 200, 0.5)
+}
+
+.projects-header #author {
+    padding: 0px 0px;
+    margin: 0px 0px;
+    color: black;
+    background-color: rgba(200, 200, 200, 0.5)
+}
+
+.projects-feed {
+    margin: 4px;
+    margin-bottom: -10px;
+}
+
+.projects-feed p {
+    background: rgba(200, 200, 200, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 16px;
+    max-height: 48px;
+    border-bottom: 1px solid black;
+}
+
+.projects-footer {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+.projects-footer .social {
+    float: left;
+    margin: 0px 4px;
+}
+
+.projects-footer .comments {
+    float: left;
+    margin: 0px 4px;
+}
+
+.projects-footer .readmore {
+    float: right;
+    border-radius: 2px;
+    margin: 0px 4px;
+}
+
+.login-content {
+    background: rgba(130, 130, 130, 0.2);
+    padding: 20px;
+}
+
+.login-title {
+    color: black;
+}
+
+.login-feed * {
+    text-align: left;
+    margin: 0% auto;
+}
+
+.panel-section {
+    padding: 20px;
+    background-color: white;
+}
+
+.panel-nav {
+    margin: 0%;
+    padding: 0%;
+    background-color: white;
+}
+
+.panel-nav ul {
+    margin: 0;
+    padding: 10px;
+}
+
+.panel-nav ul li {
+    display: block;
+}
+
+.panel-nav ul li p {
+    background: white;
+    padding: 6px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
+
+.panel-nav ul li a {
+    display: block;
+    background: black;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    margin: 2px 0px 2px 0px;
+    padding: 4px 0px 4px 0px;
+    border: 1px solid transparent;
+}
+
+.panel-nav ul li a:hover {
+    background: whitesmoke;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+}
+
+.panel-nav ul li a:active {
+    background: gray;
+}
+
+.panel-nav ul li a:visited {
+    color: white;
+    background: black;
+}
+
+.panel-display {
+    margin: 0%;
+    padding: 20px;
+    background-color: rgba(130, 130, 130, 0.2);
+}
+
+.panel-table {
+    border: 1px solid green;
+    width: 100% !important;
+    text-align: left;
+}
+
+.panel-table tr{
+    background-color: lightblue;
+}
+
+.panel-table tr:nth-child(even){
+    background-color: lightcoral;
+}
+
+.panel-table td{
+    border: 1px solid red;
+}
+
+
+/* Overriding the pagination looks*/
+
+.site-pagination ul {
+    justify-content: center;
+}
+
+.pagination .page-item.active a {
+    color: black;
+    background: white;
+    border: 1px solid black;
+    border-radius: .1rem;
+    display: inline-block;
+    padding: .2rem .4rem;
+    text-decoration: none;
+}
+
+.pagination a {
+    color: white;
+    background: black;
+}
+
+.pagination .page-item a:hover {
+    color: white;
+    background: gray;
+}
+
+
+/*Overriding the off-canvas btn*/
+
+.btn.btn-primary {
+    background: black !important;
+    border-color: black !important;
+    color: #fff !important;
+}
+
+@media screen and (max-width: 960px) {
+    .navbar ul {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+    }
+    .navbar ul li {
+        padding: 0px;
+        margin: 2px 0px 2px 0px;
+        display: block;
+        border-style: hidden;
+    }
+    .navbar li a {
+        display: block;
+        text-decoration: none;
+        background: white;
+        color: black;
+        border-bottom: 1px solid black;
+    }
+}

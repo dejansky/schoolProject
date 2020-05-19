@@ -1,0 +1,40 @@
+<main class="content-main">
+    <section class="panel-section columns">
+        <aside class="panel-nav col-2">
+            <ul>
+                <li>
+                    <a href="/panel/panel-main">General Settings</a>
+                </li>
+                <li>
+                    <a href="/panel/panel-posts">Post</a>
+                </li>
+                <li>
+                    <a href="/panel/panel-pages">Pages</a>
+                </li>
+                <li>
+                    <a href="/panel/panel-media">Media</a>
+                </li>
+            </ul>
+        </aside>
+        <article class="panel-display col-10">
+            <header>
+                <h1>Posts</h1>
+            </header>
+            <div>
+                <ul>
+                    Each title <br/>  
+                    {{#each general}}
+                        {{siteTitle}}
+                    {{/each}}
+                </ul>
+            </div>
+            <footer>
+                <ul>
+                    <li>
+                        Apply changes
+                    </li>
+                </ul>
+            </footer>
+        </article>
+    </section>
+</main>
