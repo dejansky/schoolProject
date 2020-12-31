@@ -28,7 +28,6 @@ body {
     display: inline-block;
     margin: 0px;
     padding: 5px 2px 5px 2px;
-    
 }
 
 .navbar li a {
@@ -412,21 +411,22 @@ body {
 }
 
 .panel-table {
-    border: 1px solid green;
-    width: 100% !important;
+    background-color: darkgray;
     text-align: left;
 }
 
-.panel-table tr{
-    background-color: lightblue;
+div#div.div div.div {
+    background-color: black;
 }
 
-.panel-table tr:nth-child(even){
-    background-color: lightcoral;
+.panel-tr {}
+
+.panel-th {
+    text-align: center !important;
 }
 
-.panel-table td{
-    border: 1px solid red;
+#panel-table-description {
+    text-align: center !important;
 }
 
 
@@ -454,6 +454,79 @@ body {
 .pagination .page-item a:hover {
     color: white;
     background: gray;
+}
+
+.contact-container table {
+    margin: 0 auto;
+    text-align: left;
+    border-spacing: 1em 1em;
+}
+
+
+/*Commets design*/
+
+.comments-container {
+    padding: 20px;
+}
+
+.comments-innerContainer {
+    border: 2px solid white;
+    display: inline-block;
+}
+
+.comments-header {
+    text-align: left;
+    border-bottom: 2px solid darkgray;
+    display: inline-block;
+}
+
+#comments-username {
+    padding: 10px;
+    padding-bottom: 0px;
+    margin: 0px;
+    float: left;
+    font-weight: bold;
+}
+
+#comments-date {
+    margin: 0px;
+    float: left;
+    padding: 10px;
+    padding-bottom: 0px;
+    font-weight: lighter;
+}
+
+.comments-theComment {
+    padding: 10px;
+    margin: 0px 10px 5px 10px;
+    text-align: left;
+    background-color: white;
+    color: black;
+}
+
+.comments-replayComment {
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+    text-align: none;
+    display: block;
+}
+
+.comments-replayComment::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.comments-textarea {
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    resize: none;
+    border: 1px solid grey;
 }
 
 

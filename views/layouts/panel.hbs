@@ -39,7 +39,7 @@
                             <a href="/contact">Contact</a>
                         </li>
                         <li>
-                            <a href="/panel">Panel</a>
+                            <a href="/panel/panel-main">Panel</a>
                         </li>
                         <li>
                             <a href="/login">Login</a>
@@ -51,7 +51,30 @@
         </div>
     </nav>
 
-    {{{body}}}
+    <main class="content-main">
+        <section class="panel-section columns">
+            <aside class="panel-nav col-2">
+                <ul>
+                    <li>
+                        <a href="/panel/panel-main">General Settings</a>
+                    </li>
+                    <li>
+                        <a href="/panel/panel-posts">Post</a>
+                    </li>
+                    <li>
+                        <a href="/panel/panel-pages">Pages</a>
+                    </li>
+                    <li>
+                        <a href="/panel/panel-contacts">Contacts</a>
+                    </li>
+                </ul>
+            </aside>
+                {{{body}}}
+        </section>
+    </main>
+
+
+
 
     <footer class="main-footer col-12">
         <nav class="navbar-footer col-12 hide-md">
@@ -69,7 +92,7 @@
                     <a href="/contact">Contact</a>
                 </li>
                 <li>
-                    <a href="/panel">Panel</a>
+                    <a href="/panel/panel-main">Panel</a>
                 </li>
                 <li>
                     <a href="/login">Login</a>

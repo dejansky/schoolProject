@@ -15,15 +15,15 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({
     extended: false,
-    
+
 }));
 
 
 app.use(expressSession({
     secret: "something",
     saveUninitialized: false,
-	resave: false,
-	store: new SQLiteStore()
+    resave: false,
+    store: new SQLiteStore()
 }));
 
 
@@ -31,9 +31,9 @@ app.engine("hbs", expressHandlebars({
     defaultLayout: "main.hbs"
 }));
 
-app.all('/*', function(request,response,next){
+app.all('/*', function(request, response, next) {
     request.app.locals.layout = 'main.hbs';
-    next(); 
+    next();
 })
 
 app.set('view engine', 'hbs');
@@ -61,6 +61,14 @@ app.get("/contact", function(request, response) {
 // GET /login
 app.get("/login", function(request, response) {
     response.render("login.hbs")
+});
+
+app.get("/register", function(request, response) {
+    response.render("register.hbs")
+});
+
+app.get("/page", function(request, response) {
+    response.render("page.hbs")
 });
 
 app.use("/panel", panelRouter);
