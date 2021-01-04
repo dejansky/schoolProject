@@ -55,13 +55,13 @@ function insertData() {
 exports.getSiteTitles = function(id, callback) {
     const query = "SELECT * FROM panel_pages WHERE id = ?";
     const values = [id]
-    db.get(query, values, async function(error, titles) {
-        await callback(error, titles)
+    db.get(query, values, function(error, titles) {
+        callback(error, titles)
     });
 
 };
 
-exports.getGeneralSettings = function(callback) {
+exports.getGeneralSettings = function(titles, callback) {
     const query = "SELECT * FROM general_settings"
 
     db.get(query, function(error, settings) {

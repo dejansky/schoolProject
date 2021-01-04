@@ -19,27 +19,26 @@ router.get("/", function(request, response) {
 router.get("/panel-main", async function(request, response) {
     const id = "panel-main"
 
-    titles = db.getSiteTitles(id, function(error, titles) {
+    db.getSiteTitles(id, function(error, titles) {
         if (error) {
             console.log(error)
         } else {
-            return titles
+            db.getGeneralSettings(titles, function(error, settings) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    const model = {
+                        titles,
+                        settings
+                    }
+                    console.log(model)
+                    response.render("panel-main.hbs", model)
+                }
+            })
         }
     })
 
-    async function makeModel(object, callback) {
-        callback()
-        const model = {
-            object
-        }
-        return model
-    }
 
-    const model = await makeModel(titles, titles)
-
-
-
-    response.render("panel-main.hbs", model);
 })
 
 
