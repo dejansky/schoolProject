@@ -19,25 +19,58 @@ router.get("/", function(request, response) {
 router.get("/panel-main", async function(request, response) {
     const id = "panel-main"
 
-    db.getSiteTitles(id, function(error, titles) {
-        if (error) {
-            console.log(error)
-        } else {
-            db.getGeneralSettings(titles, function(error, settings) {
-                if (error) {
-                    console.log(error)
-                } else {
-                    const model = {
-                        titles,
-                        settings
-                    }
-                    console.log(model)
-                    response.render("panel-main.hbs", model)
-                }
-            })
-        }
+    // db.getSiteTitles(id, function(error, titles) {
+    //     if (error) {
+    //         console.log(error)
+    //     } else {
+    //         db.getGeneralSettings(titles, function(error, settings) {
+    //             if (error) {
+    //                 console.log(error)
+    //             } else {
+    //                 const model = {
+    //                     titles,
+    //                     settings
+    //                 }
+    //                 console.log(model)
+    //                 response.render("panel-main.hbs", model)
+    //             }
+    //         })
+    //     }
+    // })
+
+
+    const titles = new Promise((resolve, reject)=>{
+        db.getSiteTitles(id,function(error, rows){
+            if(rows){
+                resolve(rows)
+            }else{
+                reject(error)
+            }
+        })
     })
 
+    const settings = new Promise((resolve,reject)=>{
+        db.getGeneralSettings(function(error, rows){
+            if(rows){
+                resolve(rows)
+            }else{
+                reject(error)
+            }
+        })
+    })
+
+
+    Promise.all([titles,settings]).then((m)=>{
+        console.log(m[0],m[1])
+        const model = {
+            titles:m[0],
+            settings:m[1]
+        }
+        console.log(model)
+        response.render("panel-main.hbs", model)
+    })
+
+    
 
 })
 

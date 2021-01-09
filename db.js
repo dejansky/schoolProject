@@ -61,7 +61,7 @@ exports.getSiteTitles = function(id, callback) {
 
 };
 
-exports.getGeneralSettings = function(titles, callback) {
+exports.getGeneralSettings = function(callback) {
     const query = "SELECT * FROM general_settings"
 
     db.get(query, function(error, settings) {
