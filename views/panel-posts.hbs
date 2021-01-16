@@ -2,38 +2,59 @@
     <form action="">
         <table class="panel-table col-12">
             <tr>
-                <th colspan="3" class="panel-th">
-                    Welcome to the panel
+                <th colspan="4" class="panel-th">
                     {{#if title.title}}
-                        <!-- TODO: These aren't paragraphs! -->
-                        <p>Name: {{title.title}}</p>
+                    <!-- TODO: These aren't paragraphs! -->
+                    <p> {{title.title}}</p>
                     {{else}}
-                        <p>No human with that ID exists.</p>
+                    <p>No title found</p>
                     {{/if}}
                 </th>
             </tr>
             <tr>
-                <td colspan="3" id="panel-table-description">
-                    Description.............
-                </td>
-            </tr>
-
-            <tr>
                 <td>
-                    Object one
-                </td>
-                <td>
-                    object two
-                </td>
-                <td>
-                    object three
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="border: 2px solid green;">
-                    object four
+                    {{#if title.subtitle}}
+                    <!-- TODO: These aren't paragraphs! -->
+                    <p> {{title.subtitle}}</p>
+                    {{else}}
+                    <p>No title found</p>
+                    {{/if}}
                 </td>
             </tr>
         </table>
+        <div class="col-12 ">
+            <section class="panel-posts">
+                <header class="panel-posts-header">
+                    <p>Title:the_title</p>
+                    <p>Author:the_author</p>
+                    <p>Date Published: 00/00/0000</p>
+                </header>
+
+                <article class="panel-posts-content">
+                    <p id="panel-posts-text">Content:</p>
+                    <textarea name="" id="panel-posts-textarea"></textarea>
+                </article>
+                <footer class="panel-posts-footer">
+                    <Button>Delete</Button>
+                    <button>Update</button>
+                </footer>
+            </section>
+
+            <section class="panel-create-post">
+                <div id="row">
+                    <p>Title:</p>
+                    <input type="text" value="add the title">
+                </div>
+                <article class="panel-create-post-content">
+                    <p>Add Content:</p>
+                    <textarea name="" id="create-post-textarea"></textarea>
+                </article>
+
+                <footer class="panel-posts-footer">
+                    <button>Create</button>
+                </footer>
+            </section>
+
+        </div>
     </form>
 </section>

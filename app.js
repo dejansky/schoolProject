@@ -44,8 +44,8 @@ app.get("/", function(request, response) {
 });
 
 // GET /project
-app.get("/project", function(request, response) {
-    response.render("project.hbs")
+app.get("/projects", function(request, response) {
+    response.render("projects.hbs")
 });
 
 // GET /about

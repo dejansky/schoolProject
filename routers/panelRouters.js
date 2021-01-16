@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express');
 const db = require('../db');
 
@@ -19,58 +18,42 @@ router.get("/", function(request, response) {
 router.get("/panel-main", async function(request, response) {
     const id = "panel-main"
 
-    // db.getSiteTitles(id, function(error, titles) {
-    //     if (error) {
-    //         console.log(error)
-    //     } else {
-    //         db.getGeneralSettings(titles, function(error, settings) {
-    //             if (error) {
-    //                 console.log(error)
-    //             } else {
-    //                 const model = {
-    //                     titles,
-    //                     settings
-    //                 }
-    //                 console.log(model)
-    //                 response.render("panel-main.hbs", model)
-    //             }
-    //         })
-    //     }
-    // })
 
-
-    const titles = new Promise((resolve, reject)=>{
-        db.getSiteTitles(id,function(error, rows){
-            if(rows){
+    const titles = new Promise((resolve, reject) => {
+        db.getSiteTitles(id, function(error, rows) {
+            if (rows) {
                 resolve(rows)
-            }else{
+            } else {
                 reject(error)
             }
         })
     })
 
-    const settings = new Promise((resolve,reject)=>{
-        db.getGeneralSettings(function(error, rows){
-            if(rows){
+    const site_settings = new Promise((resolve, reject) => {
+        db.getGeneralSettings(function(error, rows) {
+            if (rows) {
                 resolve(rows)
-            }else{
+            } else {
                 reject(error)
             }
         })
     })
 
+    Promise.all([titles, site_settings]).then((m) => {
 
-    Promise.all([titles,settings]).then((m)=>{
-        console.log(m[0],m[1])
-        const model = {
-            titles:m[0],
-            settings:m[1]
-        }
-        console.log(model)
-        response.render("panel-main.hbs", model)
+
+        setTimeout(() => {
+            const model = {
+                titles: m[0],
+                site_settings: m[1]
+            }
+
+            console.log(model)
+
+            response.render("panel-main.hbs", model)
+        }, 1000);
+
     })
-
-    
 
 })
 
@@ -90,9 +73,9 @@ router.get("/panel-posts", function(request, response) {
     });
 
 })
-router.get("/panel-pages", function(request, response) {
+router.get("/panel-projects", function(request, response) {
 
-    const id = "panel-pages"
+    const id = "panel-projects"
     db.getSiteTitles(id, function(error, title) {
         if (error) {
             console.log(error)
@@ -100,15 +83,15 @@ router.get("/panel-pages", function(request, response) {
             const model = {
                 title,
             }
-            response.render("panel-pages.hbs", model);
+            response.render("panel-projects.hbs", model);
         }
     });
 
 })
 
-router.get("/panel-contacts", function(request, response) {
+router.get("/panel-messages", function(request, response) {
 
-    const id = "panel-contacts"
+    const id = "panel-messages"
     db.getSiteTitles(id, function(error, title) {
         if (error) {
             console.log(error)
@@ -116,7 +99,7 @@ router.get("/panel-contacts", function(request, response) {
             const model = {
                 title,
             }
-            response.render("panel-contacts.hbs", model);
+            response.render("panel-messages.hbs", model);
         }
     });
 

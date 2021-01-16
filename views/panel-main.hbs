@@ -5,47 +5,86 @@
                 <th colspan="3" class="panel-th">
 
                     {{#if titles}}
-                        <!-- TODO: These aren't paragraphs! -->
-                        <p>{{titles.title}}</p>
-                        
+                    <!-- TODO: These aren't paragraphs! -->
+                    <p>{{titles.title}}</p>
+
                     {{else}}
-                        <p>No title found</p>
+                    <p>No title found</p>
                     {{/if}}
-                    
+
                 </th>
             </tr>
             <tr>
                 <td colspan="3" id="panel-table-description">
                     {{#if titles}}
-                        <!-- TODO: These aren't paragraphs! -->
-                        <p>{{titles.subtitle}}</p>
+                    <!-- TODO: These aren't paragraphs! -->
+                    <p>{{titles.subtitle}}</p>
 
                     {{else}}
-                        <p>No subtitle found</p>
+                    <p>No subtitle found</p>
                     {{/if}}
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    {{#if settings}}
-                    <p>{{settings.site_title}}</p>
-                    {{else}}
-                    {{/if}}
-                </td>
-                <td>
-                    object two
-                </td>
-                <td>
-                    object three
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="border: 2px solid green;">
-                    object four
                 </td>
             </tr>
         </table>
-        
+
+        <section class="panel-settings col-12">
+            <div id="row">
+                <p>
+                    Site title:
+                </p>
+                <p>
+                    {{site_settings.site_title}}
+                </p>
+                <input type="" value="{{site_settings.site_title}}">
+            </div>
+            <div id="row">
+                <p>
+                    Site subtitle:
+                </p>
+                <p>
+                    {{site_settings.site_subtitle}}
+                </p>
+                <input type="" value="{{site_settings.site_subtitle}}">
+            </div>
+            <div id="row">
+                <p>
+                    Posts per page:
+                </p>
+                <p>
+                    {{site_settings.posts_per_page}}
+                </p>
+                <input type="" value="{{site_settings.posts_per_page}}">
+            </div>
+            <div id="row">
+                <p>
+                    Background image:
+                </p>
+                <img src="{{site_settings.img_url}}" alt="">
+                <input type="" value="{{site_settings.img_url}}">
+
+            </div>
+            <div id="row">
+                <p>
+                    Current email:
+                </p>
+                <p>
+                    email@email.com
+                </p>
+                <input type="" value="Set new amount">
+            </div>
+            <div id="row">
+                <p>
+                    Current contact name:
+                </p>
+                
+                <input type="" value="Set new img url">
+
+            </div>
+            <footer id="panel-settings-footer">
+                <button>Update</button>
+            </footer>
+        </section>
+
+
     </form>
 </section>
