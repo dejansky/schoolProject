@@ -1,23 +1,22 @@
 <main class="content-main">
     <section class="col-9 col-lg-10 col-md-11 col-sm-12 col-mx-auto columns project-section">
 
+        {{#if projects.length}}
+            {{#each projects}}
+
         <article class="projects-content col-3 col-lg-5 col-sm-11">
 
             <header class="projects-header">
                 <p id="title">
-                    Title somethifnf dfdfddfdfdf
+                    {{posts_title}}
                 </p>
                 <p id="author">
-                    Author,date ....
+                    {{author}},{{publish_date}}
                 </p>
             </header>
 
             <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
+                <p>{{post_content}}</p>
             </div>
 
             <footer class="projects-footer col-12">
@@ -34,176 +33,11 @@
                 </div>
             </footer>
         </article>
+            {{/each}}
+        {{else}}
+            <p>No projects found</p>
+        {{/if}}
 
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
-
-            <header class="projects-header">
-                <p id="title">
-                    Title somethifnf dfdfddfdfdf
-                </p>
-                <p id="author">
-                    Author,date ....
-                </p>
-            </header>
-
-            <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div>
-                <div class="readmore">
-                    <button>readmore</button>
-                </div>
-            </footer>
-        </article>
-
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
-
-            <header class="projects-header">
-                <p id="title">
-                    Title somethifnf dfdfddfdfdf
-                </p>
-                <p id="author">
-                    Author,date ....
-                </p>
-            </header>
-
-            <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div>
-                <div class="readmore">
-                    <button>readmore</button>
-                </div>
-            </footer>
-        </article>
-
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
-
-            <header class="projects-header">
-                <p id="title">
-                    Title somethifnf dfdfddfdfdf
-                </p>
-                <p id="author">
-                    Author,date ....
-                </p>
-            </header>
-
-            <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div>
-                <div class="readmore">
-                    <button>readmore</button>
-                </div>
-            </footer>
-        </article>
-
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
-
-            <header class="projects-header">
-                <p id="title">
-                    Title somethifnf dfdfddfdfdf
-                </p>
-                <p id="author">
-                    Author,date ....
-                </p>
-            </header>
-
-            <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div>
-                <div class="readmore">
-                    <button>readmore</button>
-                </div>
-            </footer>
-        </article>
-
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
-
-            <header class="projects-header">
-                <p id="title">
-                    Title somethifnf dfdfddfdfdf
-                </p>
-                <p id="author">
-                    Author,date ....
-                </p>
-            </header>
-
-            <div class="projects-feed">
-                <p>Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello
-                    world Hello world Hello world Hello world Hello world Hello world </p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div>
-                <div class="readmore">
-                    <button>readmore</button>
-                </div>
-            </footer>
-        </article>
 
 
     </section>

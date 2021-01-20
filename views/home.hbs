@@ -1,27 +1,22 @@
 <main class="content-main">
     <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto">
+
+        {{#if posts.length}}
+        {{#each posts}}
         <article class="post-content ">
 
             <header class="post-title">
-                <h1>Title</h1>
-                <h4>Publisher, date, time</h4>
+                <h1>{{post_title}}</h1>
+                <h4>{{author}}, {{publish_date}}, {{author}}</h4>
             </header>
 
             <div class="post-feed">
-                <img src="https://images.wallpaperscraft.com/image/bodybuilding_bodybuilder_muscle_rod_113419_3840x2400.jpg"
-                    alt="">
-                <img src="https://c.wallhere.com/photos/60/d3/1561x1200_px_bodybuilding_monochrome-597449.jpg!d" alt="">
-                <img src="https://wallpapercave.com/wp/wp4065867.jpg" alt="">
+                {{post_content}}
 
-                <p>Heloo Enter each item on a new line, choose the amount of groups unders settings, and click the
-                    button to generate your randomized list. Don't like the first team? Just click again until you do.
-                    Fairly pick teams without bias. No need
-                    to draw names out of a hat. No need to do a grade school style draft or put hours of thought into
-                    the most balanced teams. The most fair dividing method possible is random.</p>
             </div>
 
             <footer class="post-footer">
-                <div class="social">
+                {{!-- <div class="social">
                     <i class="icon icon-1x icon-link"></i>
                     <i class="icon icon-1x icon-link"></i>
                     <i class="icon icon-1x icon-link"></i>
@@ -29,14 +24,20 @@
                 <div class="comments">
                     <i class="icon icon-1x icon-mail"></i>
                     <p>33</p>
-                </div>
+                </div> --}}
             </footer>
 
         </article>
+        {{/each}}
+        {{else}}
+        <p>No posts found</p>
+        {{/if}}
+
+
     </section>
 </main>
 
-<section class="site-pagination  col-12">
+{{!-- <section class="site-pagination  col-12">
     <ul class="pagination ">
         <li class="page-item disabled">
             <a href="#" tabindex="-1">Previous</a>
@@ -60,4 +61,4 @@
             <a href="#">Next</a>
         </li>
     </ul>
-</section>
+</section> --}}

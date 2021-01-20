@@ -3,9 +3,9 @@
         <table class="panel-table col-12">
             <tr>
                 <th colspan="4" class="panel-th">
-                    {{#if title.title}}
+                    {{#if titles.title}}
                     <!-- TODO: These aren't paragraphs! -->
-                    <p> {{title.title}}</p>
+                    <p> {{titles.title}}</p>
                     {{else}}
                     <p>No title found</p>
                     {{/if}}
@@ -13,46 +13,60 @@
             </tr>
             <tr>
                 <td>
-                    {{#if title.subtitle}}
+                    {{#if titles.subtitle}}
                     <!-- TODO: These aren't paragraphs! -->
-                    <p> {{title.subtitle}}</p>
+                    <p> {{titles.subtitle}}</p>
                     {{else}}
                     <p>No title found</p>
                     {{/if}}
                 </td>
             </tr>
         </table>
-        <div class="col-12 ">
-            <section class="panel-posts">
-                <header class="panel-posts-header">
-                    <p>Title:the_title</p>
-                    <p>Author:the_author</p>
-                    <p>Date Published: 00/00/0000</p>
-                </header>
 
-                <article class="panel-posts-content">
-                    <p id="panel-posts-text">Content:</p>
-                    <textarea name="" id="panel-posts-textarea"></textarea>
-                </article>
-                <footer class="panel-posts-footer">
-                    <Button>Delete</Button>
-                    <button>Update</button>
-                </footer>
+        <div class="col-12 ">
+            {{#if posts.length}}
+            {{#each posts}}
+
+            <section class="panel-posts">
+                <form method="POST">
+                    <header class="panel-posts-header">
+                        <input type="text" name="post_id" value="{{id}}" readonly>
+                        <br>
+                        <p>Title: <input type="text" name="post_title" value="{{post_title}}"></p>
+                        <p>Author:{{author}}</p>
+                        <p>Date Published: {{publish_date}}</p>
+                    </header>
+
+                    <article class="panel-posts-content">
+                        <p id="panel-posts-text">Content:</p>
+                        <textarea name="post_content" id="panel-posts-textarea">{{post_content}}</textarea>
+                    </article>
+                    <footer class="panel-posts-footer">
+                        <input type="submit" value="UPDATE" formaction="/panel/panel-posts/update">
+                        <input type="submit" value="DELETE" formaction="/panel/panel-posts/delete">
+                    </footer>
+                </form>
             </section>
 
+            {{/each}}
+            {{else}}
+            <p>No posts found</p>
+            {{/if}}
             <section class="panel-create-post">
-                <div id="row">
-                    <p>Title:</p>
-                    <input type="text" value="add the title">
-                </div>
-                <article class="panel-create-post-content">
-                    <p>Add Content:</p>
-                    <textarea name="" id="create-post-textarea"></textarea>
-                </article>
+                <form method="POST">
+                    <div id="row">
+                        <p>Title:</p>
+                        <input type="text" name="create_post_title" placeholder="Set title" value="">
+                    </div>
+                    <article class="panel-create-post-content">
+                        <p>Add Content:</p>
+                        <textarea name="create_post_content" id="create-post-textarea"></textarea>
+                    </article>
 
-                <footer class="panel-posts-footer">
-                    <button>Create</button>
-                </footer>
+                    <footer class="panel-posts-footer">
+                        <input type="submit" value="CREATE" formaction="/panel/panel-posts/create">
+                    </footer>
+                </form>
             </section>
 
         </div>

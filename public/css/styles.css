@@ -453,6 +453,13 @@ body {
     font-style: italic;
 }
 
+.panel-settings #row textarea {
+    display: block !important;
+    width: 50%;
+    font-weight: normal !important;
+    font-style: italic;
+}
+
 .panel-settings #row img {
     display: block !important;
     max-width: 20%;
@@ -461,7 +468,7 @@ body {
 #panel-settings-footer>* {
     display: block;
     font-weight: bold;
-    margin: 10px;
+    margin: 10px 0px 10px 0px;
 }
 
 .panel-posts {
@@ -550,11 +557,13 @@ body {
 
 .panel-contact {
     background-color: lightgoldenrodyellow;
-    padding: 20px;
+    padding: 10px;
+    border: 2px solid black;
+    margin: 5px 0px 5px 0px;
 }
 
 .panel-contact #row>* {
-    display: inline-block;
+    display: inline-block !important;
     padding: 0px;
     margin: 0px;
     font-weight: bold;
@@ -570,16 +579,22 @@ body {
 }
 
 .panel-contact #row input {
-    display: block !important;
-    width: 50%;
     font-weight: lighter !important;
     font-style: italic;
+    padding: 0px 3px 0px 3px;
 }
 
 #panel-contact-footer>* {
     display: block;
     font-weight: bold;
     margin: 5px 0px 0px 0px;
+}
+
+.panel-contact #panel-contact-mewssage-wrapper {
+    padding: 3px;
+    margin: 2px 0px 2px 0px;
+    background-color: rgb(255, 255, 244);
+    width: 100%;
 }
 
 div#div.div div.div {
@@ -665,12 +680,14 @@ div#div.div div.div {
     display: inline-block;
     padding: 0px;
     margin: 0px;
+    font-weight: bold;
 }
 
 .panel-create-project input {
     font-style: italic;
-    color: lightgray;
+    font-weight: normal !important;
     padding: 0px;
+    min-width: 25%;
 }
 
 .panel-create-project-content {

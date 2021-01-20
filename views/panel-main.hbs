@@ -1,90 +1,93 @@
 <section class="panel-display col-10">
-    <form action="">
-        <table class="panel-table col-12">
-            <tr>
-                <th colspan="3" class="panel-th">
 
-                    {{#if titles}}
-                    <!-- TODO: These aren't paragraphs! -->
-                    <p>{{titles.title}}</p>
+    <table class="panel-table col-12">
+        <tr>
+            <th colspan="3" class="panel-th">
 
-                    {{else}}
-                    <p>No title found</p>
-                    {{/if}}
+                {{#if titles}}
+                <!-- TODO: These aren't paragraphs! -->
+                <p>{{titles.title}}</p>
 
-                </th>
-            </tr>
-            <tr>
-                <td colspan="3" id="panel-table-description">
-                    {{#if titles}}
-                    <!-- TODO: These aren't paragraphs! -->
-                    <p>{{titles.subtitle}}</p>
+                {{else}}
+                <p>No title found</p>
+                {{/if}}
 
-                    {{else}}
-                    <p>No subtitle found</p>
-                    {{/if}}
-                </td>
-            </tr>
-        </table>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="3" id="panel-table-description">
+                {{#if titles}}
+                <!-- TODO: These aren't paragraphs! -->
+                <p>{{titles.subtitle}}</p>
 
-        <section class="panel-settings col-12">
-            <div id="row">
-                <p>
-                    Site title:
-                </p>
-                <p>
-                    {{site_settings.site_title}}
-                </p>
-                <input type="" value="{{site_settings.site_title}}">
-            </div>
-            <div id="row">
-                <p>
-                    Site subtitle:
-                </p>
-                <p>
-                    {{site_settings.site_subtitle}}
-                </p>
-                <input type="" value="{{site_settings.site_subtitle}}">
-            </div>
-            <div id="row">
-                <p>
-                    Posts per page:
-                </p>
-                <p>
-                    {{site_settings.posts_per_page}}
-                </p>
-                <input type="" value="{{site_settings.posts_per_page}}">
-            </div>
-            <div id="row">
-                <p>
-                    Background image:
-                </p>
-                <img src="{{site_settings.img_url}}" alt="">
-                <input type="" value="{{site_settings.img_url}}">
+                {{else}}
+                <p>No subtitle found</p>
+                {{/if}}
+            </td>
+        </tr>
+    </table>
+    <form method="POST">
+    <section class="panel-settings col-12">
+        <div id="row">
+            <p>
+                Site title:
+            </p>
+            <p>
+                {{site_settings.site_title}}
+            </p>
+            <input type="text" name="site_title" value="{{site_settings.site_title}}">
+        </div>
+        <div id="row">
+            <p>
+                Site subtitle:
+            </p>
+            <p>
+                {{site_settings.site_subtitle}}
+            </p>
+            <input type="text" name="site_subtitle" value="{{site_settings.site_subtitle}}">
+        </div>
+        <div id="row">
+            <p>
+                Posts per page:
+            </p>
+            <p>
+                {{site_settings.posts_per_page}}
+            </p>
+            <input type="number" name="posts_per_page" value="{{site_settings.posts_per_page}}">
+        </div>
+        <div id="row">
+            <p>
+                Background image:
+            </p>
+            <img src="{{site_settings.img_url}}" alt="">
+            <input type="text" name="img_url" value="{{site_settings.img_url}}">
 
-            </div>
-            <div id="row">
-                <p>
-                    Current email:
-                </p>
-                <p>
-                    email@email.com
-                </p>
-                <input type="" value="Set new amount">
-            </div>
-            <div id="row">
-                <p>
-                    Current contact name:
-                </p>
-                
-                <input type="" value="Set new img url">
+        </div>
+        <div id="row">
+            <p>
+                Contact email: {{site_settings.global_email}}
+            </p>
+            <input type="text" name="global_email" value="{{site_settings.global_email}}">
+        </div>
+        <div id="row">
+            <p>
+                Contact name: {{site_settings.global_name}}
+            </p>
 
-            </div>
-            <footer id="panel-settings-footer">
-                <button>Update</button>
-            </footer>
-        </section>
+            <input type="text" name="global_name" value="{{site_settings.global_name}}">
 
+        </div>
+        <div id="row">
+            <p>
+                About:
+            </p>
+            <br>
+            <textarea name="about" id="">{{site_settings.about}}</textarea>
 
+        </div>
+        <footer id="panel-settings-footer">
+            <input style="float: left;" type="submit" value="Update">
+        </footer>
+    </section>
     </form>
 </section>
