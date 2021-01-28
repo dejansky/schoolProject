@@ -30,7 +30,9 @@
             <section class="panel-posts">
                 <form method="POST">
                     <header class="panel-posts-header">
+                        <p>ID:
                         <input type="text" name="post_id" value="{{id}}" readonly>
+                        </p>
                         <br>
                         <p>Title: <input type="text" name="post_title" value="{{post_title}}"></p>
                         <p>Author:{{author}}</p>
@@ -42,8 +44,8 @@
                         <textarea name="post_content" id="panel-posts-textarea">{{post_content}}</textarea>
                     </article>
                     <footer class="panel-posts-footer">
-                        <input type="submit" value="UPDATE" formaction="/panel/panel-posts/update">
-                        <input type="submit" value="DELETE" formaction="/panel/panel-posts/delete">
+                        <input type="submit" value="UPDATE" formmethod="POST" formaction="/panel/panel-posts/update">
+                        <input type="submit" value="DELETE" formmethod="POST" formaction="/panel/panel-posts/delete">
                     </footer>
                 </form>
             </section>
@@ -64,7 +66,7 @@
                     </article>
 
                     <footer class="panel-posts-footer">
-                        <input type="submit" value="CREATE" formaction="/panel/panel-posts/create">
+                        <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-posts/create">
                     </footer>
                 </form>
             </section>

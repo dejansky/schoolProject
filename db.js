@@ -3,6 +3,8 @@ const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('database.db');
 
+db.run("PRAGMA foreign_keys=ON");
+
 
 db.run(`CREATE TABLE IF NOT EXISTS panel_pages(
     id TEXT PRIMARY KEY UNIQUE,
@@ -29,16 +31,18 @@ db.run(`CREATE TABLE IF NOT EXISTS posts (
     post_type TEXT,
     author FOREIGNKEY TEXT,
     publish_date DATE,
-    post_title INT NOT NULL,
+    post_title TEXT,
     post_content TEXT
-)`, function() {
-    insert_into_posts()
-});
+)`);
 
 db.run(`CREATE TABLE IF NOT EXISTS projects (
-    id TEXT FOREIGNKEY,
     project_thumbnail TEXT,
-    link TEXT
+    project_link TEXT,
+    id INTEGER,
+    CONSTRAINT fk_id
+        FOREIGN KEY (id)
+        REFERENCES posts(id)
+        ON DELETE CASCADE
 )`);
 
 db.run(`CREATE TABLE IF NOT EXISTS users (
@@ -187,18 +191,97 @@ exports.deletePost = function(values, callback) {
     })
 }
 
+exports.createProject = function(post_title, post_content, project_thumbnail, project_link, callback) {
+    const queryOne = `
+    INSERT INTO posts (post_type, post_title, post_content)
+    VALUES (?,?,?)`
+
+    const post_type = "project"
+
+    const valuesOne = [
+        post_type,
+        post_title,
+        post_content
+    ]
+
+    const queryTwo = `
+    INSERT INTO projects (id, project_thumbnail, project_link)
+    VALUES (last_insert_rowid(),?,?)
+    `
+
+    const valuesTwo = [
+        project_thumbnail,
+        project_link
+    ]
+    db.run(queryOne, valuesOne, function(error) {
+        db.run(queryTwo, valuesTwo, function(error) {
+            callback(error)
+        })
+    })
+}
 
 
 exports.getProjects = function(callback) {
-    const query = `SELECT * FROM posts 
-    WHERE post_type = ? 
-    FULL OUTER JOIN projects
-        ON posts.id = projects.id`
+    const query = `SELECT * FROM projects 
+    LEFT JOIN posts ON projects.id = posts.id
+    WHERE posts.post_type = ?`
 
     const values = ["project"]
 
     db.all(query, values, function(error, rows) {
         callback(error, rows)
+    })
+}
+
+
+exports.updateProject = function(the_id, post_title, post_content, project_thumbnail, project_link, callback) {
+    const queryOne = `
+    UPDATE posts
+    SET
+    post_title = ?,
+    post_content = ?
+    WHERE 
+    id = ?`
+
+    const post_type = "project"
+
+    const valuesOne = [
+        post_title,
+        post_content,
+        the_id
+    ]
+
+    const queryTwo = `UPDATE projects
+    SET
+    project_thumbnail = ?,
+    project_link = ?
+    WHERE 
+    id = ?
+    `
+
+    const valuesTwo = [
+        project_thumbnail,
+        project_link,
+        the_id
+    ]
+    db.run(queryOne, valuesOne, function(error) {
+        db.run(queryTwo, valuesTwo, function(error) {
+            callback(error)
+        })
+    })
+}
+
+
+exports.deleteProject = function(the_id, callback) {
+    const query = `DELETE FROM posts
+    WHERE id = ?`
+
+
+
+    const values = [the_id]
+
+    db.run(query, values, function(error) {
+        callback(error)
     })
 }
 

@@ -683,7 +683,7 @@ div#div.div div.div {
     font-weight: bold;
 }
 
-.panel-create-project input {
+.panel-create-project #row input {
     font-style: italic;
     font-weight: normal !important;
     padding: 0px;

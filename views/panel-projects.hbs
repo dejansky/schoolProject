@@ -1,69 +1,85 @@
 <section class="panel-display col-10">
-    <form action="">
-        <table class="panel-table col-12">
-            <tr>
-                <th colspan="3" class="panel-th">
-                    Welcome to the panel
-                </th>
-            </tr>
-            <tr>
-                <td colspan="3" id="panel-table-description">
-                    Description.............
-                </td>
-            </tr>
-        </table>
-        <div class="col-12 ">
-            <section class="panel-projects">
-                <header class="panel-projects-header">
-                    <p>Title:the_title</p>
-                    <p>Author:the_author</p>
-                    <p>Date Published: 00/00/0000</p>
-                    <p>Project link</p>
-                </header>
-                <div class="panel-project-img-wrapper">
-                    <p>Thumbnail:</p>
-                    <br>
-                    <img src="https://media-exp1.licdn.com/dms/image/C561BAQE7MVqDpP_Gxg/company-background_10000/0/1556621459534?e=2159024400&v=beta&t=ouGkWQ6kxmWDsDdK9Sik57UjuW1Z-tkY9j_yV7Lxsp4"
-                        alt="">
-                        <br>
-                    <p>
-                        thumbnail link:
-                    </p>
-                </div>
 
-                <article class="panel-projects-content">
-                    <p id="panel-projects-text">Content:</p>
-                    <textarea name="" id="panel-projects-textarea"></textarea>
-                </article>
-                <footer class="panel-projects-footer">
-                    <Button>Delete</Button>
-                    <button>Update</button>
-                </footer>
-            </section>
+    <table class="panel-table col-12">
+        {{#if titles}}
 
-            <section class="panel-create-project">
-                <div id="row">
-                    <p>Title:</p>
-                    <input type="text" name="project_name" placeholder="Enter title" value="">
-                </div>
-                <div id="row">
-                    <p>Thumbnail:</p>
-                    <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link" value="">
-                </div>
-                <div id="row">
-                    <p>Link:</p>
-                    <input type="text" name="project_link" placeholder="Enter the project link" value="">
-                </div>
-                <article class="panel-create-project-content">
-                    <p>Add Content:</p>
-                    <textarea name="project_content" id="create-project-textarea"></textarea>
-                </article>
+        <tr>
+            <th colspan="3" class="panel-th">
+                {{titles.title}}
+            </th>
+        </tr>
+        <tr>
+            <td colspan="3" id="panel-table-description">
+                {{titles.subtitle}}
+            </td>
+        </tr>
+        {{else}}
+        <p>No titles found</p>
+        {{/if}}
+    </table>
+    <div class="col-12 ">
+        {{#if projects.length}}
+            {{#each projects}}
+                <section class="panel-projects">
+                    <form method="POST">
+                        <header class="panel-projects-header">
+                            <p>ID:
+                                <input type="text" name="post_id" value="{{id}}" readonly>
+                            </p>
+                            <p>Author:the_author</p>
+                            <p>Date Published: 00/00/0000</p>
+                            <br>
+                            <p>Title: <input type="text" name="project_title" value="{{post_title}}"></p>
+                            <br>
+                            <p>project_link: <input type="text" name="project_link" value="{{project_link}}"></p>
+                        </header>
+                        <div class="panel-project-img-wrapper">
+                            <p>Thumbnail:</p>
+                            <br>
+                            <img src="{{project_thumbnail}}" alt="">
+                            <br>
+                            <p>
+                                Thumbnail link: <input type="text" name="project_thumbnail" value="{{project_thumbnail}}">
+                            </p>
+                        </div>
 
-                <footer class="panel-projects-footer">
-                    <button>Create</button>
-                </footer>
-            </section>
+                        <article class="panel-projects-content">
+                            <p id="panel-projects-text">Content:</p>
+                            <textarea name="project_content" id="panel-projects-textarea">{{post_content}}</textarea>
+                        </article>
+                        <footer class="panel-projects-footer">
+                            <input type="submit" value="UPDATE" formmethod="POST" formaction="/panel/panel-projects/update">
+                            <input type="submit" value="DELETE" formmethod="POST" formaction="/panel/panel-projects/delete">
+                        </footer>
+                    </form>
+                </section>
+            {{/each}}
+        {{else}}
+        {{/if}}
+        <section class="panel-create-project">
+            <form method="POST">
+            <div id="row">
+                <p>Title:</p>
+                <input type="text" name="project_title" placeholder="Enter title" value="">
+            </div>
+            <div id="row">
+                <p>Thumbnail:</p>
+                <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link" value="">
+            </div>
+            <div id="row">
+                <p>Link:</p>
+                <input type="text" name="project_link" placeholder="Enter the project link" value="">
+            </div>
+            <article class="panel-create-project-content">
+                <p>Add Content:</p>
+                <textarea name="project_content" id="create-project-textarea"></textarea>
+            </article>
 
-        </div>
-    </form>
+            <footer class="panel-projects-footer">
+                <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-projects/create">
+            </footer>
+            </form>
+        </section>
+
+    </div>
 </section>

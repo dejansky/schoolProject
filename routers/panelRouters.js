@@ -52,7 +52,7 @@ router.get("/panel-main", function(request, response) {
 
 })
 
-router.post("/panel-main", function(request, response) {
+router.post("/panel-main/update", function(request, response) {
 
     const site_title = request.body.site_title
     const site_subtitle = request.body.site_subtitle
@@ -135,7 +135,7 @@ router.post("/panel-posts/create", function(request, response) {
         if (error) {
             console.log(error)
         } else {
-            response.redirect("/")
+            response.redirect("/panel/panel-posts")
         }
     })
 })
@@ -155,7 +155,7 @@ router.post("/panel-posts/update", function(request, response) {
         if (error) {
             console.log(error)
         } else {
-            response.redirect("/")
+            response.redirect("/panel/panel-posts")
         }
     })
 })
@@ -177,22 +177,16 @@ router.post("/panel-posts/delete", function(request, response) {
 })
 
 router.post("/panel-projects/create", function(request, response) {
-    const post_title = request.body.create_post_title
-    const post_content = request.body.create_post_content
-    const post_type = "post"
-    const values = [
-        post_type,
-        post_title,
-        post_content,
-    ]
+    const post_title = request.body.project_title
+    const project_thumbnail = request.body.project_thumbnail
+    const project_link = request.body.project_link
+    const post_content = request.body.project_content
 
-    console.log(values)
-
-    db.createPost(values, function(error) {
+    db.createProject(post_title, post_content, project_thumbnail, project_link, function(error) {
         if (error) {
             console.log(error)
         } else {
-            response.redirect("/")
+            response.redirect("/panel/panel-projects")
         }
     })
 })
@@ -212,7 +206,7 @@ router.get("/panel-projects", function(request, response) {
     })
 
     const projects = new Promise((resolve, reject) => {
-        db.getPosts(function(error, rows) {
+        db.getProjects(function(error, rows) {
             if (rows) {
                 resolve(rows)
             } else {
@@ -231,6 +225,37 @@ router.get("/panel-projects", function(request, response) {
 
     })
 })
+
+router.post("/panel-projects/update", function(request, response) {
+    const post_title = request.body.project_title
+    const project_thumbnail = request.body.project_thumbnail
+    const project_link = request.body.project_link
+    const post_content = request.body.project_content
+    const the_id = request.body.post_id
+
+    db.updateProject(the_id, post_title, post_content, project_thumbnail, project_link, function(error) {
+        if (error) {
+            console.log(error)
+        } else {
+            response.redirect("/panel/panel-projects")
+        }
+    })
+})
+
+router.post("/panel-projects/delete", function(request, response) {
+    const the_id = request.body.post_id
+
+    console.log(the_id)
+    db.deleteProject(the_id, function(error) {
+        if (error) {
+            console.log(error)
+        } else {
+            response.redirect("/panel/panel-projects")
+        }
+    })
+})
+
+
 
 
 router.get("/panel-messages", function(request, response) {
