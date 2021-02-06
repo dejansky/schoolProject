@@ -18,7 +18,8 @@ db.run(`CREATE TABLE IF NOT EXISTS general_settings (
     site_title TEXT,
     site_subtitle TEXT,
     posts_per_page INT NOT NULL,
-    img_url TEXT,    
+    img_url TEXT,
+    profile_img_url TEXT,   
     global_email TEXT,
     global_name TEXT,
     about TEXT
@@ -86,8 +87,8 @@ function insert_into_panel_pages() {
 
 function insert_into_general_settings() {
     db.run(`
-        INSERT INTO general_settings (id, site_title, site_subtitle,posts_per_page ,img_url, global_email, global_name, about) 
-        SELECT "master","Dejan Arsenijevic","A river cuts trough a rock, not because of its power but its presistence",3,'https://media-exp1.licdn.com/dms/image/C561BAQE7MVqDpP_Gxg/company-background_10000/0/1556621459534?e=2159024400&v=beta&t=ouGkWQ6kxmWDsDdK9Sik57UjuW1Z-tkY9j_yV7Lxsp4','dejanarsen@gmail.com','Dejan Arsenijevic', 'Something about you'
+        INSERT INTO general_settings (id, site_title, site_subtitle,posts_per_page ,img_url,profile_img_url, global_email, global_name, about) 
+        SELECT "master","Dejan Arsenijevic","A river cuts trough a rock, not because of its power but its presistence",3,'https://echangesinternationaux.hec.ca/wp-content/uploads/2016/06/jonko-1205x800.jpg','images/profile_about.jpg','dejanarsen@gmail.com','Dejan Arsenijevic', 'Something about you'
         WHERE NOT EXISTS(SELECT 1 FROM general_settings WHERE id = 'master')`);
 
 }
@@ -112,25 +113,38 @@ exports.getSiteTitles = function(id, callback) {
 exports.getGeneralSettings = function(callback) {
     const query = "SELECT * FROM general_settings"
 
-    db.get(query, function(error, rows) {
+    db.all(query, function(error, rows) {
         callback(error, rows)
     });
 
 };
 
-exports.updateGeneralSettings = function(values, callback) {
+exports.updateGeneralSettings = function(site_title, site_subtitle, posts_per_page, profile_img_url, img_url, global_email, global_name, about, callback) {
     const query = `
     UPDATE 
-        general_settings 
+        general_settings
     SET
         site_title = ?,
         site_subtitle = ?,
         posts_per_page = ?,
-        img_url = ?,    
+        img_url = ?,
+        profile_img_url = ?,    
         global_email = ?,
         global_name = ?,
         about = ?
     `
+    const values = [
+        site_title,
+        site_subtitle,
+        posts_per_page,
+        img_url,
+        profile_img_url,
+        global_email,
+        global_name,
+        about
+    ]
+
+    console.log(values)
 
     db.run(query, values, function(error) {
         callback(error)
@@ -139,7 +153,7 @@ exports.updateGeneralSettings = function(values, callback) {
 };
 
 exports.getContactInformation = function(callback) {
-    const query = "SELECT global_name,global_email, about FROM general_settings"
+    const query = "SELECT global_name,global_email,profile_img_url,about FROM general_settings"
 
     db.get(query, function(error, rows) {
         callback(error, rows)
@@ -148,7 +162,7 @@ exports.getContactInformation = function(callback) {
 }
 
 exports.getPosts = function(callback) {
-    const query = "SELECT * FROM posts WHERE post_type = ?"
+    const query = "SELECT * FROM posts WHERE post_type = ? ORDER BY id DESC"
     const values = ["post"]
 
     db.all(query, values, function(error, rows) {
@@ -156,16 +170,24 @@ exports.getPosts = function(callback) {
     })
 }
 
-exports.createPost = function(values, callback) {
+exports.createPost = function(post_content, post_title, callback) {
     const query = `INSERT INTO posts (post_type, post_title, post_content)
     VALUES (?,?,?) `
+
+    const post_type = "post"
+
+    values = [
+        post_type,
+        post_title,
+        post_content
+    ]
+
     db.run(query, values, function(error) {
         callback(error)
     })
 }
 
-exports.updatePost = function(values, callback) {
-    console.log(values)
+exports.updatePost = function(post_title, post_content, p_id, callback) {
     const query = `
     UPDATE posts
     SET
@@ -173,19 +195,38 @@ exports.updatePost = function(values, callback) {
     post_content = ?
     WHERE 
     id = ?
+    AND 
+    post_type = ?
     `
+    const post_type = "post"
+
+    const values = [
+        post_title,
+        post_content,
+        p_id,
+        post_type
+    ]
+
     db.run(query, values, function(error) {
         callback(error)
     })
 }
 
-exports.deletePost = function(values, callback) {
-    console.log(values)
+exports.deletePost = function(p_id, callback) {
+
     const query = `
     DELETE FROM posts
     WHERE
     id = ?
+    AND 
+    post_type = ?
     `
+    const post_type = "post"
+
+    const values = [
+        p_id,
+        post_type
+    ]
     db.run(query, values, function(error) {
         callback(error)
     })
@@ -224,7 +265,9 @@ exports.createProject = function(post_title, post_content, project_thumbnail, pr
 exports.getProjects = function(callback) {
     const query = `SELECT * FROM projects 
     LEFT JOIN posts ON projects.id = posts.id
-    WHERE posts.post_type = ?`
+    WHERE posts.post_type = ?
+    ORDER BY 
+    id DESC`
 
     const values = ["project"]
 
@@ -294,7 +337,10 @@ exports.getMessages = function(callback) {
     })
 }
 
-exports.deleteMessage = function(values, callback) {
+exports.deleteMessage = function(message_id, callback) {
+    const value = [
+        message_id
+    ]
     const query = "DELETE FROM messages WHERE id = ?"
 
     db.all(query, values, function(error) {
@@ -302,8 +348,16 @@ exports.deleteMessage = function(values, callback) {
     })
 }
 
-exports.sendMessage = function(values, callback) {
-    const query = "INSERT INTO messages(first_name, last_name, email, message) VALUES(?,?,?,?)"
+exports.sendMessage = function(first_name, last_name, email, message, callback) {
+    const query = `INSERT INTO messages(first_name, last_name, email, message) 
+    VALUES(?,?,?,?)`
+
+    const values = [
+        first_name,
+        last_name,
+        email,
+        message
+    ]
 
     db.run(query, values, function(error) {
         callback(error)

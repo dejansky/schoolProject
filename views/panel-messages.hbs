@@ -4,13 +4,25 @@
     <table class="panel-table col-12">
         <tr>
             <th colspan="3" class="panel-th">
-                Welcome to the panel
+                {{#if titles}}
+                <!-- TODO: These aren't paragraphs! -->
+                <p>{{titles.title}}</p>
+
+                {{else}}
+                <p>No title found</p>
+                {{/if}}
+
             </th>
         </tr>
-
         <tr>
-            <td colspan="3">
-                <p>Your contact information</p>
+            <td colspan="3" id="panel-table-description">
+                {{#if titles}}
+                <!-- TODO: These aren't paragraphs! -->
+                <p>{{titles.subtitle}}</p>
+
+                {{else}}
+                <p>No subtitle found</p>
+                {{/if}}
             </td>
         </tr>
     </table>
@@ -51,6 +63,6 @@
             </section>
         {{/each}}
     {{else}}
-
+        <p>No messages</p>
     {{/if}}
 </section>

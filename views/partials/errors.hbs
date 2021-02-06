@@ -1,0 +1,17 @@
+{{#if this.length}}
+
+<section class="error-container">
+
+    <header>
+        <p>Fix the errors: </p>
+    </header>
+    <article>
+        <ul>
+            {{#each this}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </article>
+</section>
+
+{{/if}}

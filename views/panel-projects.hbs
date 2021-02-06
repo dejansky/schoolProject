@@ -1,5 +1,7 @@
 <section class="panel-display col-10">
-
+    {{#if error}}
+    {{>errors errors}}
+    {{/if}}
     <table class="panel-table col-12">
         {{#if titles}}
 
@@ -18,66 +20,77 @@
         {{/if}}
     </table>
     <div class="col-12 ">
-        {{#if projects.length}}
-            {{#each projects}}
-                <section class="panel-projects">
-                    <form method="POST">
-                        <header class="panel-projects-header">
-                            <p>ID:
-                                <input type="text" name="post_id" value="{{id}}" readonly>
-                            </p>
-                            <p>Author:the_author</p>
-                            <p>Date Published: 00/00/0000</p>
-                            <br>
-                            <p>Title: <input type="text" name="project_title" value="{{post_title}}"></p>
-                            <br>
-                            <p>project_link: <input type="text" name="project_link" value="{{project_link}}"></p>
-                        </header>
-                        <div class="panel-project-img-wrapper">
-                            <p>Thumbnail:</p>
-                            <br>
-                            <img src="{{project_thumbnail}}" alt="">
-                            <br>
-                            <p>
-                                Thumbnail link: <input type="text" name="project_thumbnail" value="{{project_thumbnail}}">
-                            </p>
-                        </div>
+        {{>errors errors}}
+        {{#if success_created}}
+        <p id="success">Project created!</p>
+        {{/if}}
+        {{#if success_updated}}
+        <p id="success">Project updated!</p>
+        {{/if}}
+        {{#if success_deleted}}
+        <p id="success">Project deleted!</p>
+        {{/if}}
 
-                        <article class="panel-projects-content">
-                            <p id="panel-projects-text">Content:</p>
-                            <textarea name="project_content" id="panel-projects-textarea">{{post_content}}</textarea>
-                        </article>
-                        <footer class="panel-projects-footer">
-                            <input type="submit" value="UPDATE" formmethod="POST" formaction="/panel/panel-projects/update">
-                            <input type="submit" value="DELETE" formmethod="POST" formaction="/panel/panel-projects/delete">
-                        </footer>
-                    </form>
-                </section>
-            {{/each}}
+        {{#if projects.length}}
+        {{#each projects}}
+        <section class="panel-projects">
+            <form method="POST">
+                <header class="panel-projects-header">
+                    <p>ID:</p> <input type="text" name="post_id" value="{{id}}" readonly>
+
+                    <br>
+                    <p>Title:</p> <input type="text" name="project_title" value="{{post_title}}">
+                    <br>
+                    <p>Project Link:</p> <input type="text" name="project_link" value="{{project_link}}">
+                </header>
+                <div class="panel-project-img-wrapper">
+                    <p>Thumbnail:</p>
+                    <img src="{{project_thumbnail}}" alt="">
+                    <p>
+                        Thumbnail link: <input type="text" name="project_thumbnail" value="{{project_thumbnail}}">
+                    </p>
+                </div>
+
+                <article class="panel-projects-content">
+                    <p id="panel-projects-text">Content:</p>
+                    <textarea name="project_content" id="panel-projects-textarea">{{post_content}}</textarea>
+                </article>
+                <footer class="panel-projects-footer">
+                    <input id="panel-input-button" type="submit" value="UPDATE" formmethod="POST"
+                        formaction="/panel/panel-projects/update">
+                    <input id="panel-input-button" type="submit" value="DELETE" formmethod="POST"
+                        formaction="/panel/panel-projects/delete">
+                </footer>
+            </form>
+        </section>
+        {{/each}}
         {{else}}
         {{/if}}
         <section class="panel-create-project">
+            <div class="column col-6 col-mx-auto" style="text-align:center;">
+                <p>CREATE</p>
+            </div>
             <form method="POST">
-            <div id="row">
-                <p>Title:</p>
-                <input type="text" name="project_title" placeholder="Enter title" value="">
-            </div>
-            <div id="row">
-                <p>Thumbnail:</p>
-                <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link" value="">
-            </div>
-            <div id="row">
-                <p>Link:</p>
-                <input type="text" name="project_link" placeholder="Enter the project link" value="">
-            </div>
-            <article class="panel-create-project-content">
-                <p>Add Content:</p>
-                <textarea name="project_content" id="create-project-textarea"></textarea>
-            </article>
+                <div id="row">
+                    <p>Title:</p>
+                    <input type="text" name="project_title" placeholder="Enter title" value="{{create_projects.create_post_title}}">
+                </div>
+                <div id="row">
+                    <p>Link:</p>
+                    <input type="text" name="project_link" placeholder="Enter the project link" value="{{create_projects.create_project_link}}">
+                </div>
+                <div id="row">
+                    <p>Thumbnail:</p>
+                    <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link" value="{{create_projects.create_project_thumbnail}}">
+                </div>
+                <article class="panel-create-project-content">
+                    <p>Add Content:</p>
+                    <textarea name="project_content" id="create-project-textarea">{{create_projects.create_post_content}}</textarea>
+                </article>
 
-            <footer class="panel-projects-footer">
-                <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-projects/create">
-            </footer>
+                <footer class="panel-projects-footer">
+                    <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-projects/create">
+                </footer>
             </form>
         </section>
 

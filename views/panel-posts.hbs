@@ -1,5 +1,8 @@
 <section class="panel-display col-10">
     <form action="">
+        {{#if error}}
+            {{>errors errors}}
+        {{else}}
         <table class="panel-table col-12">
             <tr>
                 <th colspan="4" class="panel-th">
@@ -24,6 +27,16 @@
         </table>
 
         <div class="col-12 ">
+            {{>errors errors}}
+            {{#if success_created}}
+                <p id="success">Post created!</p>
+            {{/if}}
+            {{#if success_updated}}
+                <p id="success">Post updated!</p>
+            {{/if}}
+            {{#if success_deleted}}
+                <p id="success">Post deleted!</p>
+            {{/if}}
             {{#if posts.length}}
             {{#each posts}}
 
@@ -31,7 +44,7 @@
                 <form method="POST">
                     <header class="panel-posts-header">
                         <p>ID:
-                        <input type="text" name="post_id" value="{{id}}" readonly>
+                        <input type="number" name="post_id" value="{{id}}" readonly>
                         </p>
                         <br>
                         <p>Title: <input type="text" name="post_title" value="{{post_title}}"></p>
@@ -54,15 +67,16 @@
             {{else}}
             <p>No posts found</p>
             {{/if}}
+            
             <section class="panel-create-post">
                 <form method="POST">
                     <div id="row">
                         <p>Title:</p>
-                        <input type="text" name="create_post_title" placeholder="Set title" value="">
+                        <input type="text" name="create_post_title" placeholder="Set title" value="{{create_posts.create_post_title}}">
                     </div>
                     <article class="panel-create-post-content">
                         <p>Add Content:</p>
-                        <textarea name="create_post_content" id="create-post-textarea"></textarea>
+                        <textarea name="create_post_content" id="create-post-textarea">{{create_posts.create_post_content}}</textarea>
                     </article>
 
                     <footer class="panel-posts-footer">
@@ -70,7 +84,7 @@
                     </footer>
                 </form>
             </section>
-
+            {{/if}}
         </div>
     </form>
 </section>

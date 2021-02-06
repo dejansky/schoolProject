@@ -1,4 +1,4 @@
-<main class="content-main">
+
     <section class="col-9 col-lg-10 col-md-11 col-sm-12 col-mx-auto columns project-section">
 
         {{#if projects.length}}
@@ -7,11 +7,11 @@
         <article class="projects-content col-3 col-lg-5 col-sm-11">
 
             <header class="projects-header">
+                <div class="img-wrapper-projects">
+                    <img src="{{project_thumbnail}}" alt="thumbnail">
+                </div>
                 <p id="title">
-                    {{posts_title}}
-                </p>
-                <p id="author">
-                    {{author}},{{publish_date}}
+                    {{post_title}}
                 </p>
             </header>
 
@@ -20,16 +20,16 @@
             </div>
 
             <footer class="projects-footer col-12">
-                <div class="social">
+                {{!-- <div class="social">
                     <i class="icon icon-1x icon-link"></i>
                     <i class="icon icon-1x icon-link"></i>
                     <i class="icon icon-1x icon-link"></i>
                 </div>
                 <div class="comments">
                     <i class="icon icon-1x icon-mail"></i> 33
-                </div>
+                </div> --}}
                 <div class="readmore">
-                    <button>Readmore</button>
+                    <a class="btn" href="{{project_link}}" target="_blank">Readmore</a>
                 </div>
             </footer>
         </article>
@@ -41,9 +41,9 @@
 
 
     </section>
-</main>
 
-<section class="site-pagination  col-12">
+
+{{!-- <section class="site-pagination  col-12">
     <ul class="pagination ">
         <li class="page-item disabled">
             <a href="#" tabindex="-1">Previous</a>
@@ -67,4 +67,4 @@
             <a href="#">Next</a>
         </li>
     </ul>
-</section>
+</section> --}}

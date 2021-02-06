@@ -11,7 +11,7 @@ body {
 .navbar-main {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 9999;
 }
 
 .off-canvas .off-canvas-sidebar-show {
@@ -54,38 +54,54 @@ body {
 }
 
 .header-main {
-    height: 80vh;
     text-align: center;
-    background-image: url(https://i.pinimg.com/originals/bc/c0/86/bcc0860537b4030e6e62fa0a38ef907b.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+}
+
+.header-main section {
+    z-index: 999;
+    margin-top: -45vh;
+    margin-bottom: 30vh;
+    position: relative;
+}
+
+.img-wrapper-main {
+    z-index: 0;
+    overflow: hidden;
+    height: 80vh;
+    width: 100%;
+}
+
+.img-wrapper-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .site-logo {
     text-align: right;
-    padding: 45vh 0px 0px 0px;
 }
 
 .site-logo h1 {
-    font-size: 4vw;
+    font-size: 6vw;
     color: black;
     padding: 0;
     margin: 0;
+    font-family: 'Bilbo Swash Caps', cursive;
 }
 
 .site-moto {
     padding: 0;
+    display: inline-block;
     text-align: right;
     color: black;
 }
 
 .site-moto h3 {
-    width: 50%;
     float: right;
+    text-align: right;
     font-size: 90%;
-    padding: 0;
-    margin: 20px 0px 0px 0px;
+    padding: 0px 20px 0px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .content-main {
@@ -94,6 +110,7 @@ body {
 }
 
 .post-content {
+    margin: 30px 0px 30px 0px;
     background: rgba(130, 130, 130, 0.2);
 }
 
@@ -102,17 +119,14 @@ body {
     font-family: serif;
     margin: 0;
     padding-top: 15px;
-}
-
-.post-title h4 {
-    font-family: fantasy;
-    font-weight: 100;
-    font-size: 80%;
+    font-family: 'Martel Sans', sans-serif;
 }
 
 .post-feed {
+    text-align: left;
     font-family: times;
     padding: 4vh 0vh 3vh 0vh;
+    font-family: 'Martel', serif;
 }
 
 .post-feed img {
@@ -123,7 +137,8 @@ body {
 
 .post-feed p {
     text-align: left;
-    padding: 2% 10% 0% 10%;
+    padding: 0% 10% 0% 10%;
+    font-size: 150%;
 }
 
 .post-footer {
@@ -148,7 +163,8 @@ body {
 
 .main-footer {
     background: rgba(0, 0, 0, 0.9);
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
+    margin: 0px;
 }
 
 .navbar-footer ul {
@@ -181,14 +197,38 @@ body {
     color: white;
 }
 
-.main-footer-instagram {
-    margin-top: 20px;
+.main-footer-table {
     background: gray;
-    height: 30vh;
+    margin-top: 20px;
+    font-family: 'Martel Sans', sans-serif;
+}
+
+.main-footer-table>* {
+    display: inline-block;
+    padding: 30px;
+    border: 1px solid black;
+}
+
+.main-footer-table header {
+    text-align: center;
+    color: black;
+}
+
+.main-footer-table article>* {
+    color: black;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Martel', serif;
+}
+
+.main-footer #copyright {
+    padding: 10px 0px 0px 0px;
+    text-align: center;
+    color: white;
 }
 
 .about-section {
-    background-image: url(https://ak6.picdn.net/shutterstock/videos/12686396/thumb/3.jpg);
+    background-image: url(https://coolbackgrounds.io/images/backgrounds/white/white-triangle-369b8d2d.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -198,6 +238,7 @@ body {
 
 .about-content {
     background: rgba(200, 200, 200, 0.5);
+    font-family: 'Martel Sans', sans-serif;
 }
 
 .about-content>* {
@@ -213,6 +254,7 @@ body {
 .about-text {
     text-align: justify;
     padding: 30px;
+    font-family: 'Martel', serif;
 }
 
 .about-profile>* {
@@ -221,25 +263,33 @@ body {
     margin: 0;
 }
 
-.about-profile img {
+.about-profile-img-wrapper {
+    height: 60%;
+    margin: 0 auto;
+}
+
+.about-profile-img-wrapper img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-profile p {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    font-family: 'Martel', serif;
+    color: black;
 }
 
 .about-profile #name {
     font-size: 1.2rem;
-    font-style: italic;
-    font-family: sans-serif;
-}
-
-.about-profile #phone {
-    font-style: italic;
-    font-family: sans-serif;
 }
 
 .about-profile #email {
     font-style: italic;
-    font-family: sans-serif;
     color: black;
+    font-weight: bold;
 }
 
 .about-profile #email a {
@@ -249,10 +299,12 @@ body {
 .contact-content {
     background-color: rgba(130, 130, 130, 0.2);
     padding: 20px;
+    font-family: 'Martel Sans', sans-serif;
 }
 
 .contact-content form div {
     display: inline-block;
+    font-family: 'Martel', serif;
 }
 
 .project-section {
@@ -269,15 +321,22 @@ body {
 
 .projects-header {
     display: block;
-    height: 20vh;
     text-align: center;
-    background-image: url(https://i.pinimg.com/originals/bc/c0/86/bcc0860537b4030e6e62fa0a38ef907b.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-top: 25%;
     filter: grayscale(60%);
     z-index: -1;
+}
+
+.img-wrapper-projects {
+    height: 20vh;
+}
+
+.img-wrapper-projects img {
+    object-fit: fill;
+    width: 100%;
+    height: auto;
+    z-index: -1 !important;
+    position: relative;
+    border-bottom: 1px solid black;
 }
 
 .projects-header:hover {
@@ -286,10 +345,12 @@ body {
 
 .projects-header #title {
     padding: 0px 0px;
-    margin: 0px 0px;
-    font-size: 24px;
-    color: black;
-    background-color: rgba(200, 200, 200, 0.5)
+    margin-top: -25%;
+    margin-bottom: 25%;
+    font-size: 1vw;
+    color: white;
+    background-color: rgba(130, 130, 130, 0.8);
+    z-index: 1;
 }
 
 .projects-header #author {
@@ -300,17 +361,20 @@ body {
 }
 
 .projects-feed {
-    margin: 4px;
-    margin-bottom: -10px;
+    margin: 0px;
 }
 
 .projects-feed p {
-    background: rgba(200, 200, 200, 0.5);
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 16px;
-    max-height: 48px;
-    border-bottom: 1px solid black;
+    padding: 10px;
+    line-height: 22px;
+    font-size: 22px;
+    max-height: 5vh;
+}
+
+.projects-feed p:hover {
+    max-height: none;
 }
 
 .projects-footer {
@@ -404,6 +468,10 @@ body {
     background: black;
 }
 
+#panel-input-button {
+    min-width: auto !important;
+}
+
 .panel-display {
     margin: 0%;
     padding: 20px;
@@ -462,7 +530,8 @@ body {
 
 .panel-settings #row img {
     display: block !important;
-    max-width: 20%;
+    max-width: 10%;
+    object-fit: contain;
 }
 
 #panel-settings-footer>* {
@@ -537,7 +606,6 @@ body {
 
 .panel-create-post input {
     font-style: italic;
-    color: lightgray;
     padding: 0px;
 }
 
@@ -608,7 +676,12 @@ div#div.div div.div {
     margin-bottom: 10px;
     width: 100%;
     padding: 10px;
-    border: 2px solid black;
+}
+
+.panel-projects-header input {
+    min-width: 25% !important;
+    border: 1px solid black;
+    font-weight: normal;
 }
 
 .panel-projects-header {
@@ -641,19 +714,21 @@ div#div.div div.div {
 
 .panel-project-img-wrapper {
     font-weight: bold;
+    width: 100%;
 }
 
 .panel-project-img-wrapper input {
-    width: 40%;
+    width: 25% !important;
 }
 
 .panel-project-img-wrapper>* {
     margin: 5px 0px 5px 0px;
-    display: inline-block;
+    display: block;
 }
 
 .panel-project-img-wrapper img {
-    max-width: 20%;
+    object-fit: contain;
+    max-width: 10%;
 }
 
 #panel-projects-textarea {
@@ -674,6 +749,7 @@ div#div.div div.div {
     width: 100%;
     border: 2px solid black;
     padding: 10px;
+    font-weight: bold;
 }
 
 .panel-create-project #row>* {
@@ -802,6 +878,37 @@ div#div.div div.div {
     outline: none;
     resize: none;
     border: 1px solid grey;
+}
+
+.error-container {
+    color: black;
+    margin: 0px;
+    padding: 0px;
+}
+
+.error-container>* {
+    margin: 0px;
+    padding: 0px;
+    font-weight: bold;
+}
+
+.error-container ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.error-container ul li {
+    font-weight: bold;
+    color: red;
+    margin: 0px;
+    padding: 0px;
+}
+
+#success {
+    font-weight: bold;
+    color: green;
+    font-size: 2vw;
 }
 
 

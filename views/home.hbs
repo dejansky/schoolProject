@@ -1,17 +1,16 @@
-<main class="content-main">
-    <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto">
 
-        {{#if posts.length}}
+    {{#if posts.length}}
         {{#each posts}}
+    <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto">
+        
         <article class="post-content ">
 
             <header class="post-title">
                 <h1>{{post_title}}</h1>
-                <h4>{{author}}, {{publish_date}}</h4>
             </header>
 
             <div class="post-feed">
-                {{post_content}}
+                <p>{{post_content}}</p>
 
             </div>
 
@@ -28,14 +27,14 @@
             </footer>
 
         </article>
-        {{/each}}
-        {{else}}
-        <p>No posts found</p>
-        {{/if}}
+        
 
 
     </section>
-</main>
+    {{/each}}
+        {{else}}
+        <p>No posts found</p>
+        {{/if}}
 
 {{!-- <section class="site-pagination  col-12">
     <ul class="pagination ">

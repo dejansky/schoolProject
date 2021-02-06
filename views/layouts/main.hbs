@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="../../css/spectre-icons.min.css">
     <link rel="stylesheet" href="../../css/styles.css">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Martel&family=Martel+Sans:wght@200&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -42,9 +46,6 @@
                         <li>
                             <a href="/panel/panel-main">Panel</a>
                         </li>
-                        <li>
-                            <a href="/login">Login</a>
-                        </li>
                     </ul>
                 </section>
             </div>
@@ -53,21 +54,41 @@
     </nav>
 
     <header class="col-12 header-main">
-        <section>
-            <div class="site-logo col-6 col-mx-auto">
+        <div class="img-wrapper-main">
+            {{#if general_settings}}
+            <img src="{{general_settings.img_url}}" alt="">
+
+            {{else}}
+            <p>Could not load the image</p>
+            {{/if}}
+        </div>
+
+        <section class="col-8 col-mx-auto">
+            <div class="site-logo col-12 col-mx-auto">
                 <h1>
-                    Dejan Arsenijevic
+                    {{#if general_settings}}
+                    {{general_settings.site_title}}
+                    {{else}}
+                    <p>Could not fetch the title </p>
+                    {{/if}}
                 </h1>
             </div>
-            <div class="site-moto col-6 col-mx-auto">
-                <h3>"A river cuts trough a rock, not because of its power but its presistence" <br> - Deda</h3>
+            <div class="site-moto col-12 col-mx-auto">
+                <h3>
+                    {{#if general_settings}}
+                    {{general_settings.site_subtitle}}
+                    {{else}}
+                    <p>Could not fetch the title </p>
+                    {{/if}}
+                </h3>
             </div>
         </section>
     </header>
+    <main class="content-main">
+        {{{body}}}
+    </main>
 
-    {{{body}}}
-
-    <footer class="main-footer col-12">
+    <footer class="main-footer columns col-12">
         <nav class="navbar-footer col-12 hide-md">
             <ul>
                 <li>
@@ -93,9 +114,46 @@
             </ul>
         </nav>
 
-        <section class="main-footer-instagram">
+        <section class="main-footer-table col-8 col-mx-auto columns">
+            <div class="col-4">
+                <header>
+                    <h2>
+                        Social
+                    </h2>
+                </header>
+                <article>
+                    <p>Facebook</p>
+                    <p>Instagram</p>
+                </article>
+            </div>
+            <div class="col-4">
+                <header>
+                    <h2>
+                        Contact Inf.
+                    </h2>
+                </header>
+                <article>
+                    <p>Tel:</p>
+                    <p>Email:</p>
+                    <p>Linkedin</p>
+                </article>
+            </div>
+            <div class="col-4">
+                <header>
+                    <h2>
+                        Schools
+                    </h2>
+                </header>
+                <article>
+                    <p>Jönköping University</p>
+                </article>
+            </div>
 
         </section>
+
+        <div class="col-12 col-mx-auto" id="copyright">
+            <p>Website - © - by Dejan Arsenijevic 2021</p>
+        </div>
 
     </footer>
 
