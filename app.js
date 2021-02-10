@@ -51,7 +51,7 @@ app.all('/*', function(request, response, next) {
     request.app.locals.layout = 'main.hbs';
     const site_settings = new Promise((resolve, reject) => {
         const errors = []
-        db.getGeneralSettings(function(error, rows) {
+        db.getGlobalTitles(function(error, rows) {
             if (rows) {
                 resolve(rows)
             } else {
@@ -78,7 +78,7 @@ app.set('view engine', 'hbs');
 // GET /
 app.get("/", function(request, response) {
     errors = []
-    db.getPosts(function(error, posts) {
+    db.getPostsHome(function(error, posts) {
         if (error) {
             console.log(error)
             errors.push('Internal server error :( Pleas try again later')

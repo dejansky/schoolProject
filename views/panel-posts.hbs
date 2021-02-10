@@ -43,12 +43,14 @@
                             <form method="POST">
                                 <header class="panel-posts-header">
                                     <p>ID:
-                                        <input type="hidden" name="post_id" value="{{id}}" readonly>
+                                        <input id="display-id" type="number" name="post_id" value="{{id}}" readonly>
                                     </p>
                                     <br>
                                     <p>Title: <input type="text" name="post_title" value="{{post_title}}"></p>
+                                    {{!-- 
+                                    No time to implement these :(
                                     <p>Author:{{author}}</p>
-                                    <p>Date Published: {{publish_date}}</p>
+                                    <p>Date Published: {{publish_date}}</p> --}}
                                 </header>
 
                                 <article class="panel-posts-content">

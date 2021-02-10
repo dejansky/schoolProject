@@ -1,4 +1,3 @@
-const { query } = require('express');
 const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('database.db');
@@ -118,6 +117,14 @@ exports.getGeneralSettings = function(callback) {
     });
 
 };
+exports.getGlobalTitles = function(callback) {
+    const query = "SELECT site_title,site_subtitle,img_url FROM general_settings"
+
+    db.all(query, function(error, rows) {
+        callback(error, rows)
+    });
+
+};
 
 exports.updateGeneralSettings = function(site_title, site_subtitle, posts_per_page, profile_img_url, img_url, global_email, global_name, about, callback) {
     const query = `
@@ -163,6 +170,14 @@ exports.getContactInformation = function(callback) {
 
 exports.getPosts = function(callback) {
     const query = "SELECT * FROM posts WHERE post_type = ? ORDER BY id DESC"
+    const values = ["post"]
+
+    db.all(query, values, function(error, rows) {
+        callback(error, rows)
+    })
+}
+exports.getPostsHome = function(callback) {
+    const query = "SELECT post_title, post_content FROM posts WHERE post_type = ? ORDER BY id DESC"
     const values = ["post"]
 
     db.all(query, values, function(error, rows) {
