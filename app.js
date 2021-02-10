@@ -39,8 +39,11 @@ app.use(function(request, response, next) {
     next()
 })
 
+
+const bcrypt = require('bcrypt');
+
 const admin_username = "admin"
-const admin_password = "password"
+const admin_password = "$2b$10$SoDdPdKJ/YpNRf6MiZM2fek2nguMLa.4HJPuKbrg.65RoCnovu6Me"
 
 const MINIMUM_TEXT_LENGTH = 2;
 const MINIMUM_NAME_LENGTH = 2;
@@ -218,7 +221,7 @@ app.post("/login", function(request, response) {
 
     console.log(entered_username, entered_password)
 
-    if (entered_username == admin_username && entered_password == admin_password) {
+    if (entered_username == admin_username && bcrypt.compareSync(entered_password, admin_password) == true) {
         request.session.isLoggedIn = true
         response.redirect("/panel/")
     } else {
