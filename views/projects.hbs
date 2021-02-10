@@ -1,46 +1,44 @@
-
-    <section class="col-9 col-lg-10 col-md-11 col-sm-12 col-mx-auto columns project-section">
-
+<section class="col-9 col-lg-10 col-md-11 col-sm-12 col-mx-auto columns project-section">
+    {{#if error}}
+        {{>errors errors}}
+    {{else}}
         {{#if projects.length}}
             {{#each projects}}
+                <article class="projects-content col-3 col-lg-5 col-sm-11">
 
-        <article class="projects-content col-3 col-lg-5 col-sm-11">
+                    <header class="projects-header">
+                        <div class="img-wrapper-projects">
+                            <img src="{{project_thumbnail}}" alt="thumbnail">
+                        </div>
+                        <p id="title">
+                            {{post_title}}
+                        </p>
+                    </header>
 
-            <header class="projects-header">
-                <div class="img-wrapper-projects">
-                    <img src="{{project_thumbnail}}" alt="thumbnail">
-                </div>
-                <p id="title">
-                    {{post_title}}
-                </p>
-            </header>
+                    <div class="projects-feed">
+                        <p>{{post_content}}</p>
+                    </div>
 
-            <div class="projects-feed">
-                <p>{{post_content}}</p>
-            </div>
-
-            <footer class="projects-footer col-12">
-                {{!-- <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i> 33
-                </div> --}}
-                <div class="readmore">
-                    <a class="btn" href="{{project_link}}" target="_blank">Readmore</a>
-                </div>
-            </footer>
-        </article>
+                    <footer class="projects-footer col-12">
+                        {{!-- <div class="social">
+                            <i class="icon icon-1x icon-link"></i>
+                            <i class="icon icon-1x icon-link"></i>
+                            <i class="icon icon-1x icon-link"></i>
+                        </div>
+                        <div class="comments">
+                            <i class="icon icon-1x icon-mail"></i> 33
+                        </div> --}}
+                        <div class="readmore">
+                            <a class="btn" href="{{project_link}}" target="_blank">Readmore</a>
+                        </div>
+                    </footer>
+                </article>
             {{/each}}
         {{else}}
             <p>No projects found</p>
         {{/if}}
-
-
-
-    </section>
+    {{/if}}
+</section>
 
 
 {{!-- <section class="site-pagination  col-12">

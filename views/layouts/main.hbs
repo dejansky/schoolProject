@@ -43,9 +43,16 @@
                         <li>
                             <a href="/contact">Contact</a>
                         </li>
-                        <li>
-                            <a href="/panel/panel-main">Panel</a>
-                        </li>
+                        {{#if isLoggedIn}}
+                            <li>
+                                <a href="/panel/panel-main">Panel</a>
+                            </li>
+                            <li>
+                                <form method="POST">
+                                <input id="logout-btn" type="submit" value="Logout" formmethod="POST" formaction="/logout">
+                                </form>
+                            </li>
+                        {{/if}}
                     </ul>
                 </section>
             </div>
@@ -56,10 +63,10 @@
     <header class="col-12 header-main">
         <div class="img-wrapper-main">
             {{#if general_settings}}
-            <img src="{{general_settings.img_url}}" alt="">
+                <img src="{{general_settings.img_url}}" alt="header_img">
 
             {{else}}
-            <p>Could not load the image</p>
+                <p>Could not load the image</p>
             {{/if}}
         </div>
 
@@ -67,18 +74,18 @@
             <div class="site-logo col-12 col-mx-auto">
                 <h1>
                     {{#if general_settings}}
-                    {{general_settings.site_title}}
+                        {{general_settings.site_title}}
                     {{else}}
-                    <p>Could not fetch the title </p>
+                        <p>Could not fetch the title </p>
                     {{/if}}
                 </h1>
             </div>
             <div class="site-moto col-12 col-mx-auto">
                 <h3>
                     {{#if general_settings}}
-                    {{general_settings.site_subtitle}}
+                        {{general_settings.site_subtitle}}
                     {{else}}
-                    <p>Could not fetch the title </p>
+                        <p>Could not fetch the title </p>
                     {{/if}}
                 </h3>
             </div>
@@ -103,12 +110,15 @@
                 <li>
                     <a href="/contact">Contact</a>
                 </li>
-                <li>
-                    <a href="/panel/panel-main">Panel</a>
-                </li>
-                <li>
-                    <a href="/login">Login</a>
-                </li>
+                {{#if isLoggedIn}}
+                    <li>
+                        <a href="/panel/panel-main">Panel</a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="/login">Login</a>
+                    </li>
+                {{/if}}
 
             </ul>
             </ul>

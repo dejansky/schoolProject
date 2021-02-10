@@ -1,28 +1,30 @@
 <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto about-section">
-
-
-    {{#if contact}}
-    <article class="about-content">
-        <header>
-            <h1>ABOUT</h1>
-        </header>
-        <div class="about-feed columns ">
-            <div class="about-text column col-9 col-lg-7 col-sm-12">
-                <p>{{contact.about}}</p>
-            </div>
-            <div class="about-profile column col-3 col-lg-5 col-sm-8 col-mx-auto">
-                <div class="about-profile-img-wrapper col-8">
-                    <img src="{{contact.profile_img_url}}" alt="profile_img">
-                </div>
-                <p id="name">{{contact.global_name}}</p>
-                <p id="email"> Email: <a href="mailto: {{contact.global_email}}">{{contact.global_email}}</a></p>
-            </div>
-        </div>
-        <footer class="about-footer">
-            <h1></h1>
-        </footer>
-    </article>
+    {{#if error}}
+        {{>errors errors}}
     {{else}}
-    <p>No content found</p>
+        {{#if contact}}
+            <article class="about-content">
+                <header>
+                    <h1>ABOUT</h1>
+                </header>
+                <div class="about-feed columns ">
+                    <div class="about-text column col-9 col-lg-7 col-sm-12">
+                        <p>{{contact.about}}</p>
+                    </div>
+                    <div class="about-profile column col-3 col-lg-5 col-sm-8 col-mx-auto">
+                        <div class="about-profile-img-wrapper col-8">
+                            <img src="{{contact.profile_img_url}}" alt="profile_img">
+                        </div>
+                        <p id="name">{{contact.global_name}}</p>
+                        <p id="email"> Email: <a href="mailto: {{contact.global_email}}">{{contact.global_email}}</a></p>
+                    </div>
+                </div>
+                <footer class="about-footer">
+                    <h1></h1>
+                </footer>
+            </article>
+        {{else}}
+            <p>No content found</p>
+        {{/if}}
     {{/if}}
 </section>

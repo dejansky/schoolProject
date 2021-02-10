@@ -38,12 +38,16 @@
                         <li>
                             <a href="/contact">Contact</a>
                         </li>
-                        <li>
-                            <a href="/panel/panel-main">Panel</a>
-                        </li>
-                        <li>
-                            <a href="/logout">Logout</a>
-                        </li>
+                        {{#if isLoggedIn}}
+                            <li>
+                                <a href="/panel/panel-main">Panel</a>
+                            </li>
+                            <li>
+                                <form method="POST">
+                                    <input id="logout-btn" type="submit" value="Logout" formmethod="POST" formaction="/logout">
+                                </form>
+                            </li>
+                        {{/if}}
                     </ul>
                 </section>
             </div>
@@ -69,7 +73,7 @@
                     </li>
                 </ul>
             </aside>
-                {{{body}}}
+            {{{body}}}
         </section>
     </main>
 
@@ -94,9 +98,13 @@
                 <li>
                     <a href="/panel/panel-main">Panel</a>
                 </li>
-                <li>
-                    <a href="/login">Login/Logout</a>
-                </li>
+                {{#if isLoggedIn}}
+                    <li>
+                        <form method="POST">
+                            <input type="submit" value="Logout" formmethod="POST" formaction="/logout">
+                        </form>
+                    </li>
+                {{/if}}
 
             </ul>
             </ul>

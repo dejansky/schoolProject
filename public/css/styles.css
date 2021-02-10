@@ -38,6 +38,7 @@ body {
     color: black;
     border-left: 1px solid gray;
     border-right: 1px solid gray;
+    font-size: 16px;
 }
 
 .navbar li a:hover {
@@ -51,6 +52,26 @@ body {
 
 .navbar li a:visited {
     color: black;
+}
+
+#logout-btn {
+    border: none;
+    margin: 0px;
+    padding: 3px;
+    font-size: 16px;
+    text-decoration: none;
+    background: white;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+#logout-btn:hover {
+    background: rgb(200, 200, 200);
+}
+
+#logout-btn input {
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
 .header-main {

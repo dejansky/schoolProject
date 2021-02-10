@@ -1,68 +1,71 @@
 <section class="panel-display col-10">
 
-
-    <table class="panel-table col-12">
-        <tr>
-            <th colspan="3" class="panel-th">
-                {{#if titles}}
-                <!-- TODO: These aren't paragraphs! -->
-                <p>{{titles.title}}</p>
-
-                {{else}}
-                <p>No title found</p>
-                {{/if}}
-
-            </th>
-        </tr>
-        <tr>
-            <td colspan="3" id="panel-table-description">
-                {{#if titles}}
-                <!-- TODO: These aren't paragraphs! -->
-                <p>{{titles.subtitle}}</p>
-
-                {{else}}
-                <p>No subtitle found</p>
-                {{/if}}
-            </td>
-        </tr>
-    </table>
-    
-    {{#if guest_messages.length}}
-        {{#each guest_messages}}
-            <section class="panel-contact">
-                <form method="POST">
-                    <div id="row">
-                        <p>
-                            Message ID: 
-                        </p>
-                        <input type="text" name="message_id" value="{{id}}" readonly>
-                    </div>
-                    <div id="row">
-                        <p>
-                            Name:{{first_name}} {{last_name}}
-                        </p>
-                    </div>
-                    <div id="row">
-                        <p>
-                            Email: {{email}}
-                        </p>
-                    </div>
-                    <div id="row">
-                        <p>
-                            Message:
-                        </p>
-                        <br>
-                        <p id="panel-contact-mewssage-wrapper">
-                            {{message}}
-                        </p>
-                    </div>
-                    <footer id="panel-contact-footer">
-                        <input type="submit" value="DELETE">
-                    </footer>
-                </form>
-            </section>
-        {{/each}}
+    {{#if error}}
+        {{>errors errors}}
     {{else}}
-        <p>No messages</p>
+        <table class="panel-table col-12">
+            <tr>
+                <th colspan="3" class="panel-th">
+                    {{#if titles}}
+                        <p>{{titles.title}}</p>
+                    {{else}}
+                        <p>No title found</p>
+                    {{/if}}
+
+                </th>
+            </tr>
+            <tr>
+                <td colspan="3" id="panel-table-description">
+                    {{#if titles}}
+                        <p>{{titles.subtitle}}</p>
+                    {{else}}
+                        <p>No subtitle found</p>
+                    {{/if}}
+                </td>
+            </tr>
+        </table>
+        {{>errors errors}}
+        {{#if success_deleted}}
+            <p id="success">Message deleted!</p>
+        {{/if}}
+        {{#if guest_messages.length}}
+            {{#each guest_messages}}
+                <section class="panel-contact">
+                    <form method="POST">
+                        <div id="row">
+                            <p>
+                                Message ID:
+                            </p>
+                            <input type="text" name="message_id" value="{{id}}" readonly>
+                        </div>
+                        <div id="row">
+                            <p>
+                                Name:{{first_name}} {{last_name}}
+                            </p>
+                        </div>
+                        <div id="row">
+                            <p>
+                                Email: {{email}}
+                            </p>
+                        </div>
+                        <div id="row">
+                            <p>
+                                Message:
+                            </p>
+                            <br>
+                            <p id="panel-contact-mewssage-wrapper">
+                                {{message}}
+                            </p>
+                        </div>
+                        <footer id="panel-contact-footer">
+                            <input type="hidden" name="_csrf" value="{{../csrfToken}}">
+                            <input type="submit" value="DELETE" formmethod="POST" formaction="panel-messages/delete">
+                        </footer>
+                    </form>
+                </section>
+            {{/each}}
+        {{else}}
+            <p>No messages</p>
+        {{/if}}
     {{/if}}
 </section>

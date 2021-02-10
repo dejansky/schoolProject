@@ -330,7 +330,7 @@ exports.deleteProject = function(the_id, callback) {
 
 
 exports.getMessages = function(callback) {
-    const query = "SELECT * FROM messages"
+    const query = "SELECT * FROM messages ORDER BY id DESC"
 
     db.all(query, function(error, rows) {
         callback(error, rows)
@@ -338,7 +338,7 @@ exports.getMessages = function(callback) {
 }
 
 exports.deleteMessage = function(message_id, callback) {
-    const value = [
+    const values = [
         message_id
     ]
     const query = "DELETE FROM messages WHERE id = ?"

@@ -1,7 +1,7 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(expressSession);
 const panelRouter = require('./routers/panelRouters');
@@ -9,35 +9,48 @@ const db = require('./db');
 
 const app = express();
 
-app.use(cookieParser())
+
 app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({
-    extended: false,
+app.use(bodyParser.urlencoded({ extended: false }));
 
-}));
+app.use(cookieParser())
 
 
-const MINIMUM_TEXT_LENGTH = 2;
-const MINIMUM_NAME_LENGTH = 2;
 
 app.use(expressSession({
     secret: "199b345fb09ff8e01f507dbd1ab557a1",
     saveUninitialized: false,
     resave: false,
-    store: new SQLiteStore()
+    store: new SQLiteStore(),
+    cookie: { secure: true }
 }));
-
 
 app.engine("hbs", expressHandlebars({
     defaultLayout: "main.hbs",
     extname: "hbs",
 }));
 
+app.use(function(request, response, next) {
+    const isLoggedIn = request.session.isLoggedIn
+    response.locals.isLoggedIn = isLoggedIn
+
+    console.log(isLoggedIn)
+    next()
+})
+
+const admin_username = "admin"
+const admin_password = "password"
+
+const MINIMUM_TEXT_LENGTH = 2;
+const MINIMUM_NAME_LENGTH = 2;
+
+
 
 app.all('/*', function(request, response, next) {
     request.app.locals.layout = 'main.hbs';
     const site_settings = new Promise((resolve, reject) => {
+        const errors = []
         db.getGeneralSettings(function(error, rows) {
             if (rows) {
                 resolve(rows)
@@ -47,13 +60,16 @@ app.all('/*', function(request, response, next) {
         })
     })
 
-    Promise.all([site_settings]).then((m) => {
-        request.app.locals.general_settings = m[0][0]
-        console.log(m)
+    Promise.all([site_settings]).then((rows) => {
+        request.app.locals.general_settings = rows[0][0]
+        console.log(rows)
         next()
-    }).catch((m) => {
-        // TODO
-        console.log(m)
+    }).catch((error) => {
+        errors.push("Internal server error :( Pleas try again later")
+        request.app.locals.error = true
+        request.app.locals.errors = errors
+
+        console.log(error)
     })
 })
 
@@ -61,9 +77,17 @@ app.set('view engine', 'hbs');
 
 // GET /
 app.get("/", function(request, response) {
+    errors = []
     db.getPosts(function(error, posts) {
         if (error) {
-
+            console.log(error)
+            errors.push('Internal server error :( Pleas try again later')
+            const model = {
+                error: true,
+                errors: errors
+            }
+            console.log(model)
+            response.render("home.hbs", model)
         } else {
             const model = {
                 posts,
@@ -77,9 +101,16 @@ app.get("/", function(request, response) {
 
 // GET /project
 app.get("/projects", function(request, response) {
+    errors = []
     db.getProjects(function(error, projects) {
         if (error) {
-
+            errors.push('Internal server error :( Pleas try again later')
+            const model = {
+                error: true,
+                errors: errors
+            }
+            console.log(model)
+            response.render("projects.hbs", model)
         } else {
             const model = {
                 projects,
@@ -93,8 +124,15 @@ app.get("/projects", function(request, response) {
 // GET /about
 app.get("/about", function(request, response) {
     db.getContactInformation(function(error, contact) {
+        errors = []
         if (error) {
-
+            errors.push('Internal server error :( Pleas try again later')
+            const model = {
+                error: true,
+                errors: errors
+            }
+            console.log(model)
+            response.render("about.hbs", model)
         } else {
             const model = {
                 contact,
@@ -149,7 +187,7 @@ app.post("/contact", function(request, response) {
     } else {
         db.sendMessage(first_name, last_name, email, message, function(error) {
             if (error) {
-                errors.push('Something went wrong :( ')
+                errors.push('Internal server error :( Please try again later) ')
                 const model = {
                     error: true,
                     errors: errors
@@ -165,8 +203,6 @@ app.post("/contact", function(request, response) {
             }
         })
     }
-
-
 })
 
 // GET /login
@@ -174,13 +210,33 @@ app.get("/login", function(request, response) {
     response.render("login.hbs")
 });
 
-app.get("/logout", function(request, response) {
+app.post("/login", function(request, response) {
+    const entered_username = request.body.entered_username
+    const entered_password = request.body.entered_password
+
+    const errors = []
+
+    console.log(entered_username, entered_password)
+
+    if (entered_username == admin_username && entered_password == admin_password) {
+        request.session.isLoggedIn = true
+        response.redirect("/panel/")
+    } else {
+        //display erorr message wrong password or username 
+        errors.push('The username or password is incorrect')
+        const model = {
+            errors: errors,
+        }
+        response.render('login.hbs', model)
+    }
+
+});
+
+app.post("/logout", function(request, response) {
+    request.session.isLoggedIn = false
     response.redirect("/")
 })
 
-app.get("/register", function(request, response) {
-    response.render("register.hbs")
-});
 
 // app.get("/page", function(request, response) {
 //     response.render("page.hbs")

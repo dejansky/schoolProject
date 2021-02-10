@@ -1,63 +1,61 @@
-
+{{#if error}}
+    {{>errors errors}}
+{{else}}
     {{#if posts.length}}
         {{#each posts}}
-    <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto">
-        
-        <article class="post-content ">
+            <section class="col-8 col-lg-10 col-md-11 col-sm-12 col-mx-auto">
 
-            <header class="post-title">
-                <h1>{{post_title}}</h1>
-            </header>
+                <article class="post-content ">
 
-            <div class="post-feed">
-                <p>{{post_content}}</p>
+                    <header class="post-title">
+                        <h1>{{post_title}}</h1>
+                    </header>
 
-            </div>
+                    <div class="post-feed">
+                        <p>{{post_content}}</p>
+                    </div>
 
-            <footer class="post-footer">
-                {{!-- <div class="social">
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                    <i class="icon icon-1x icon-link"></i>
-                </div>
-                <div class="comments">
-                    <i class="icon icon-1x icon-mail"></i>
-                    <p>33</p>
-                </div> --}}
-            </footer>
-
-        </article>
-        
-
-
-    </section>
-    {{/each}}
-        {{else}}
+                    <footer class="post-footer">
+                        {{!-- <div class="social">
+                            <i class="icon icon-1x icon-link"></i>
+                            <i class="icon icon-1x icon-link"></i>
+                            <i class="icon icon-1x icon-link"></i>
+                        </div>
+                        <div class="comments">
+                            <i class="icon icon-1x icon-mail"></i>
+                            <p>33</p>
+                        </div> --}}
+                    </footer>
+                </article>
+            </section>
+        {{/each}}
+    {{else}}
         <p>No posts found</p>
-        {{/if}}
+    {{/if}}
 
-{{!-- <section class="site-pagination  col-12">
-    <ul class="pagination ">
-        <li class="page-item disabled">
-            <a href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item active">
-            <a href="#">1</a>
-        </li>
-        <li class="page-item">
-            <a href="#">2</a>
-        </li>
-        <li class="page-item">
-            <a href="#">3</a>
-        </li>
-        <li class="page-item">
-            <span>...</span>
-        </li>
-        <li class="page-item">
-            <a href="#">12</a>
-        </li>
-        <li class="page-item">
-            <a href="#">Next</a>
-        </li>
-    </ul>
-</section> --}}
+    {{!-- <section class="site-pagination  col-12">
+        <ul class="pagination ">
+            <li class="page-item disabled">
+                <a href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active">
+                <a href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a href="#">3</a>
+            </li>
+            <li class="page-item">
+                <span>...</span>
+            </li>
+            <li class="page-item">
+                <a href="#">12</a>
+            </li>
+            <li class="page-item">
+                <a href="#">Next</a>
+            </li>
+        </ul>
+    </section> --}}
+{{/if}}

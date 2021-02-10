@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../db');
+const csrf = require('csurf');
 
 const router = express.Router();
 
@@ -8,6 +9,8 @@ const MINIMUM_NAME_LENGTH = 2;
 const MINIMUM_POST_PER_PAGE = 1;
 
 
+router.use(csrf({ cookie: true }))
+
 router.all('/*', function(request, response, next) {
     request.app.locals.layout = 'panel.hbs';
     next();
@@ -15,7 +18,11 @@ router.all('/*', function(request, response, next) {
 
 router.get("/", function(request, response) {
 
-    response.redirect('/panel/panel-main');
+    if (request.session.isLoggedIn == false) {
+        response.redirect('/')
+    } else {
+        response.redirect('/panel/panel-main');
+    }
 
 })
 
@@ -23,7 +30,6 @@ router.get("/", function(request, response) {
 router.get("/panel-main", function(request, response) {
     const id = "panel-main"
     const errors = []
-
 
     const titles = new Promise((resolve, reject) => {
         db.getSiteTitles(id, function(error, rows) {
@@ -45,15 +51,16 @@ router.get("/panel-main", function(request, response) {
         })
     })
 
-    Promise.all([titles, site_settings]).then((m) => {
+    Promise.all([titles, site_settings]).then((rows) => {
         const model = {
-            titles: m[0],
-            site_settings: m[1],
-            error: false
+            titles: rows[0],
+            site_settings: rows[1],
+            error: false,
+            csrfToken: request.csrfToken()
         }
         console.log(model)
         response.render("panel-main.hbs", model)
-    }).catch((m) => {
+    }).catch((error) => {
 
         errors.push('Internal server error :( ')
 
@@ -61,7 +68,7 @@ router.get("/panel-main", function(request, response) {
             error: true,
             errors: errors,
         }
-        console.log(m)
+        console.log(error)
         response.render("panel-main.hbs", model)
     })
 
@@ -114,9 +121,11 @@ router.post("/panel-main/update", function(request, response) {
     const global_name = request.body.global_name
     const about = request.body.about
 
-    console.log(site_title, site_subtitle, posts_per_page, profile_img_url, img_url, global_email, global_name, about)
-
     const errors = validateGeneralSettingsInput(site_title, site_subtitle, posts_per_page, profile_img_url, img_url, global_email, global_name, about)
+
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
 
     if (errors.length > 0) {
         db.getSiteTitles(id, function(error, rows) {
@@ -223,22 +232,23 @@ router.get("/panel-posts", function(request, response) {
         })
     })
 
-    Promise.all([titles, posts]).then((m) => {
+    Promise.all([titles, posts]).then((rows) => {
         const model = {
-            titles: m[0],
-            posts: m[1],
-            error: false
+            titles: rows[0],
+            posts: rows[1],
+            error: false,
+            csrfToken: request.csrfToken()
         }
         console.log(model)
         response.render("panel-posts.hbs", model)
 
-    }).catch((m) => {
+    }).catch((error) => {
         errors.push('Internal server error :(')
         const model = {
             error: true,
             errors: errors
         }
-        console.log(m)
+        console.log(error)
         response.render("panel-main.hbs", model)
     })
 })
@@ -265,6 +275,10 @@ router.post("/panel-posts/create", function(request, response) {
 
     const errors = validatePostInput(create_post_title, create_post_content)
 
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
+
     if (errors.length > 0) {
 
         db.getSiteTitles(id, function(error, rows) {
@@ -279,17 +293,30 @@ router.post("/panel-posts/create", function(request, response) {
                 response.render("panel-posts.hbs", model)
             } else {
                 db.getPosts(function(error, posts) {
-                    const model = {
-                        titles: rows,
-                        errors: errors,
-                        posts: posts,
-                        create_posts: {
-                            create_post_title: create_post_title,
-                            create_post_content: create_post_content
+                    if (error) {
+                        errors.push('Internal server error! Please try again later. ')
+                        const model = {
+                            titles: rows,
+                            errors: errors,
+                            error: true
                         }
+                        console.log(error)
+                        console.log(model)
+                        response.render("panel-posts.hbs", model)
+                    } else {
+                        const model = {
+                            titles: rows,
+                            errors: errors,
+                            posts: posts,
+                            create_posts: {
+                                create_post_title: create_post_title,
+                                create_post_content: create_post_content
+                            }
+                        }
+                        console.log(model)
+                        response.render("panel-posts.hbs", model)
                     }
-                    console.log(model)
-                    response.render("panel-posts.hbs", model)
+
                 })
 
             }
@@ -351,9 +378,13 @@ router.post("/panel-posts/update", function(request, response) {
     const id = "panel-posts"
     const post_title = request.body.post_title
     const post_content = request.body.post_content
-    const p_id = request.body.post_id
+    const post_id = request.body.post_id
 
     const errors = validatePostInput(post_title, post_content)
+
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
 
     if (errors.length > 0) {
         db.getSiteTitles(id, function(error, rows) {
@@ -373,7 +404,7 @@ router.post("/panel-posts/update", function(request, response) {
                     posts: [{
                         post_title: post_title,
                         post_content: post_content,
-                        id: p_id
+                        id: post_id
                     }]
                 }
                 console.log(model)
@@ -381,7 +412,7 @@ router.post("/panel-posts/update", function(request, response) {
             }
         })
     } else {
-        db.updatePost(post_title, post_content, p_id, function(error) {
+        db.updatePost(post_title, post_content, post_id, function(error) {
             if (error) {
                 errors.push('Internal server error! Please try again later. ')
                 console.log(error)
@@ -439,54 +470,82 @@ router.post("/panel-posts/delete", function(request, response) {
     const p_id = request.body.post_id
     errors = []
 
-    db.deletePost(p_id, function(error) {
-        if (error) {
-            errors.push('Internal server error! Please try again later. ')
-            console.log(error)
-            const model = {
-                error: true,
-                errors: errors
-            }
-            console.log(model)
-            response.render("panel-posts.hbs", model)
-        } else {
-            db.getSiteTitles(id, function(error, rows) {
-                if (error) {
-                    errors.push('Internal server error! Please try again later. ')
-                    console.log(error)
-                    const model = {
-                        error: true,
-                        errors: errors
-                    }
-                    console.log(model)
-                    response.render("panel-posts.hbs", model)
-                } else {
-                    db.getPosts(function(error, posts) {
-                        if (error) {
-                            errors.push('Internal server error! Please try again later. ')
-                            console.log(error)
-                            const model = {
-                                error: true,
-                                errors: errors
-                            }
-                            console.log(model)
-                            response.render("panel-posts.hbs", model)
-                        } else {
-                            const model = {
-                                titles: rows,
-                                errors: errors,
-                                success_deleted: true,
-                                posts: posts,
-                            }
-                            console.log(model)
-                            response.render("panel-posts.hbs", model)
-                        }
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
 
-                    })
+    if (errors.length > 0) {
+        db.getSiteTitles(id, function(error, rows) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
                 }
-            })
-        }
-    })
+                console.log(model)
+                response.render("panel-messages.hbs", model)
+            } else {
+                const model = {
+                    titles: rows,
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-messages.hbs", model)
+            }
+        })
+    } else {
+        db.deletePost(p_id, function(error) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-posts.hbs", model)
+            } else {
+                db.getSiteTitles(id, function(error, rows) {
+                    if (error) {
+                        errors.push('Internal server error! Please try again later. ')
+                        console.log(error)
+                        const model = {
+                            error: true,
+                            errors: errors
+                        }
+                        console.log(model)
+                        response.render("panel-posts.hbs", model)
+                    } else {
+                        db.getPosts(function(error, posts) {
+                            if (error) {
+                                errors.push('Internal server error! Please try again later. ')
+                                console.log(error)
+                                const model = {
+                                    error: true,
+                                    errors: errors
+                                }
+                                console.log(model)
+                                response.render("panel-posts.hbs", model)
+                            } else {
+                                const model = {
+                                    titles: rows,
+                                    errors: errors,
+                                    success_deleted: true,
+                                    posts: posts,
+                                }
+                                console.log(model)
+                                response.render("panel-posts.hbs", model)
+                            }
+
+                        })
+                    }
+                })
+            }
+        })
+    }
+
 })
 
 function validateProjectInput(title, project_thumbnail, project_link, post_content) {
@@ -517,6 +576,9 @@ router.post("/panel-projects/create", function(request, response) {
 
     const errors = validateProjectInput(post_title, project_thumbnail, project_link, post_content)
 
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
     if (errors.length > 0) {
         db.getSiteTitles(id, function(error, rows) {
             if (error) {
@@ -600,7 +662,7 @@ router.post("/panel-projects/create", function(request, response) {
 
 router.get("/panel-projects", function(request, response) {
     const id = "panel-projects"
-
+    errors = []
     const titles = new Promise((resolve, reject) => {
         db.getSiteTitles(id, function(error, rows) {
             if (rows) {
@@ -621,20 +683,23 @@ router.get("/panel-projects", function(request, response) {
         })
     })
 
-    Promise.all([titles, projects]).then((m) => {
+    Promise.all([titles, projects]).then((rows) => {
         const model = {
-            titles: m[0],
-            projects: m[1],
-            error: false
+            titles: rows[0],
+            projects: rows[1],
+            error: false,
+            csrfToken: request.csrfToken()
         }
         console.log(model)
         response.render("panel-projects.hbs", model)
 
-    }).catch((m) => {
+    }).catch((error) => {
+        errors.push('Internal server error :( Please try again later! ')
         const model = {
             error: true,
+            errors: errors
         }
-        console.log(m)
+        console.log(error)
         response.render("panel-main.hbs", model)
     })
 })
@@ -651,6 +716,10 @@ router.post("/panel-projects/update", function(request, response) {
     const p_id = request.body.post_id
 
     const errors = validateProjectInput(post_title, project_thumbnail, project_link, post_content)
+
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
 
     console.log(errors)
 
@@ -740,54 +809,82 @@ router.post("/panel-projects/delete", function(request, response) {
 
     const errors = []
 
-    db.deleteProject(the_id, function(error) {
-        if (error) {
-            errors.push('Internal server error! Please try again later. ')
-            console.log(error)
-            const model = {
-                error: true,
-                errors: errors
-            }
-            console.log(model)
-            response.render("panel-projects.hbs", model)
-        } else {
-            db.getSiteTitles(id, function(error, rows) {
-                if (error) {
-                    errors.push('Internal server error! Please try again later. ')
-                    console.log(error)
-                    const model = {
-                        error: true,
-                        errors: errors
-                    }
-                    console.log(model)
-                    response.render("panel-projects.hbs", model)
-                } else {
-                    db.getProjects(function(error, projects) {
-                        if (error) {
-                            errors.push('Internal server error! Please try again later. ')
-                            console.log(error)
-                            const model = {
-                                error: true,
-                                errors: errors
-                            }
-                            console.log(model)
-                            response.render("panel-projects.hbs", model)
-                        } else {
-                            const model = {
-                                titles: rows,
-                                errors: errors,
-                                success_deleted: true,
-                                projects: projects,
-                            }
-                            console.log(model)
-                            response.render("panel-projects.hbs", model)
-                        }
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
 
-                    })
+    if (errors.length > 0) {
+        db.getSiteTitles(id, function(error, rows) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
                 }
-            })
-        }
-    })
+                console.log(model)
+                response.render("panel-projects.hbs", model)
+            } else {
+                const model = {
+                    titles: rows,
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-projects.hbs", model)
+            }
+        })
+    } else {
+        db.deleteProject(the_id, function(error) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-projects.hbs", model)
+            } else {
+                db.getSiteTitles(id, function(error, rows) {
+                    if (error) {
+                        errors.push('Internal server error! Please try again later. ')
+                        console.log(error)
+                        const model = {
+                            error: true,
+                            errors: errors
+                        }
+                        console.log(model)
+                        response.render("panel-projects.hbs", model)
+                    } else {
+                        db.getProjects(function(error, projects) {
+                            if (error) {
+                                errors.push('Internal server error! Please try again later. ')
+                                console.log(error)
+                                const model = {
+                                    error: true,
+                                    errors: errors
+                                }
+                                console.log(model)
+                                response.render("panel-projects.hbs", model)
+                            } else {
+                                const model = {
+                                    titles: rows,
+                                    errors: errors,
+                                    success_deleted: true,
+                                    projects: projects,
+                                }
+                                console.log(model)
+                                response.render("panel-projects.hbs", model)
+                            }
+
+                        })
+                    }
+                })
+            }
+        })
+    }
+
 })
 
 
@@ -796,6 +893,7 @@ router.post("/panel-projects/delete", function(request, response) {
 router.get("/panel-messages", function(request, response) {
 
     const id = "panel-messages"
+    const errors = []
     const titles = new Promise((resolve, reject) => {
         db.getSiteTitles(id, function(error, rows) {
             if (rows) {
@@ -816,38 +914,111 @@ router.get("/panel-messages", function(request, response) {
         })
     })
 
-    Promise.all([titles, guest_messages]).then((m) => {
+    Promise.all([titles, guest_messages]).then((rows) => {
         const model = {
-            titles: m[0],
-            guest_messages: m[1],
-            error: false
+            titles: rows[0],
+            guest_messages: rows[1],
+            error: false,
+            csrfToken: request.csrfToken()
         }
         console.log(model)
         response.render("panel-messages.hbs", model)
 
-    }).catch((m) => {
+    }).catch((error) => {
+        errors.push("Internal server error :( Please try again later")
         const model = {
             error: true,
+            errors: errors
         }
-        console.log(m)
+        console.log(error)
         response.render("panel-main.hbs", model)
     })
 
 
 })
 
-router.post("/panel-messages", function(request, response) {
-
+router.post("/panel-messages/delete", function(request, response) {
+    const id = "panel-messages"
     const message_id = request.body.message_id
 
-    db.deleteMessage(message_id, function(error) {
-        if (error) {
-            console.log(error)
-        } else {
-            console.log("sucess")
-            response.redirect("/panel/")
-        }
-    })
+    const errors = []
+
+    if (!request.session.isLoggedIn) {
+        errors.push("You are not authorized to use this functionality")
+    }
+
+    if (errors.length > 0) {
+        db.getSiteTitles(id, function(error, rows) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-messages.hbs", model)
+            } else {
+                const model = {
+                    titles: rows,
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-messages.hbs", model)
+            }
+        })
+
+    } else {
+        db.deleteMessage(message_id, function(error) {
+            if (error) {
+                errors.push('Internal server error! Please try again later. ')
+                console.log(error)
+                const model = {
+                    error: true,
+                    errors: errors
+                }
+                console.log(model)
+                response.render("panel-messages.hbs", model)
+            } else {
+                db.getSiteTitles(id, function(error, rows) {
+                    if (error) {
+                        errors.push('Internal server error! Please try again later. ')
+                        console.log(error)
+                        const model = {
+                            error: true,
+                            errors: errors
+                        }
+                        console.log(model)
+                        response.render("panel-messages.hbs", model)
+                    } else {
+                        db.getMessages(function(error, messages) {
+                            if (error) {
+                                errors.push('Internal server error! Please try again later. ')
+                                console.log(error)
+                                const model = {
+                                    error: true,
+                                    errors: errors
+                                }
+                                console.log(model)
+                                response.render("panel-messages.hbs", model)
+                            } else {
+                                const model = {
+                                    titles: rows,
+                                    success_deleted: true,
+                                    guest_messages: messages,
+                                }
+                                console.log(model)
+                                response.render("panel-messages.hbs", model)
+                            }
+
+                        })
+                    }
+                })
+            }
+        })
+    }
+
 
 })
 
