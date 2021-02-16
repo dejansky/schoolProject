@@ -9,6 +9,12 @@ const db = require('./db');
 
 const app = express();
 
+app.use(expressSession({
+    secret: "199b345fb09ff8e01f507dbd1ab557a1",
+    saveUninitialized: false,
+    resave: false,
+    store: new SQLiteStore(),
+}));
 
 app.use(express.static("public"));
 
@@ -16,28 +22,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser())
 
-
-
-app.use(expressSession({
-    secret: "199b345fb09ff8e01f507dbd1ab557a1",
-    saveUninitialized: false,
-    resave: false,
-    store: new SQLiteStore(),
-    cookie: { secure: true }
-}));
-
 app.engine("hbs", expressHandlebars({
     defaultLayout: "main.hbs",
     extname: "hbs",
 }));
 
-app.use(function(request, response, next) {
-    const isLoggedIn = request.session.isLoggedIn
-    response.locals.isLoggedIn = isLoggedIn
 
-    console.log(isLoggedIn)
-    next()
-})
 
 
 const bcrypt = require('bcrypt');
@@ -47,6 +37,7 @@ const admin_password = "$2b$10$SoDdPdKJ/YpNRf6MiZM2fek2nguMLa.4HJPuKbrg.65RoCnov
 
 const MINIMUM_TEXT_LENGTH = 2;
 const MINIMUM_NAME_LENGTH = 2;
+
 
 
 
@@ -66,7 +57,7 @@ app.all('/*', function(request, response, next) {
     Promise.all([site_settings]).then((rows) => {
         request.app.locals.general_settings = rows[0][0]
         console.log(rows)
-        next()
+
     }).catch((error) => {
         errors.push("Internal server error :( Pleas try again later")
         request.app.locals.error = true
@@ -74,9 +65,20 @@ app.all('/*', function(request, response, next) {
 
         console.log(error)
     })
+    next()
 })
 
+
+
 app.set('view engine', 'hbs');
+
+app.use(function(request, response, next) {
+    const isLoggedIn = request.session.isLoggedIn
+    response.locals.isLoggedIn = isLoggedIn
+
+    console.log("Undefined ?", isLoggedIn)
+    next()
+})
 
 // GET /
 app.get("/", function(request, response) {
@@ -219,7 +221,7 @@ app.post("/login", function(request, response) {
 
     const errors = []
 
-    console.log(entered_username, entered_password)
+    console.log("ENTERED !! ", entered_username, entered_password)
 
     if (entered_username == admin_username && bcrypt.compareSync(entered_password, admin_password) == true) {
         request.session.isLoggedIn = true
