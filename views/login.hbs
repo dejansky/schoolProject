@@ -10,33 +10,34 @@
             {{>errors errors}}
             <div class="login-feed ">
                 <form method="POST">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="uname"><b>Username</b></label>
-                        </td>
-                        <td>
-                            <input type="text" placeholder="Enter Username" name="entered_username" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="psw"><b>Password</b></label>
-                        </td>
-                        <td>
-                            <input type="password" placeholder="Enter Password" name="entered_password" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Login" formmethod="POST" formaction="/login">
-                        </td>
-                        {{!-- <td>
-                            <span class="psw">Forgot your <a href="#">password?</a></span>
-                        </td> --}}
-                    </tr>
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="uname"><b>Username</b></label>
+                            </td>
+                            <td>
+                                <input type="text" placeholder="Enter Username" name="entered_username" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="psw"><b>Password</b></label>
+                            </td>
+                            <td>
+                                <input type="password" placeholder="Enter Password" name="entered_password" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                <input type="submit" value="Login" formmethod="POST" formaction="/login">
+                            </td>
+                            {{!-- <td>
+                                <span class="psw">Forgot your <a href="#">password?</a></span>
+                            </td> --}}
+                        </tr>
 
-                </table>
+                    </table>
                 {{!-- <span class="psw">Don't have an account ? <a href="/register">Register</a></span> --}}
                 </form>
             </div>

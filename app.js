@@ -6,6 +6,7 @@ const expressSession = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(expressSession);
 const panelRouter = require('./routers/panelRouters');
 const db = require('./db');
+const csrf = require('csurf');
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.engine("hbs", expressHandlebars({
 }));
 
 
-
+app.use(csrf({ cookie: true }))
 
 const bcrypt = require('bcrypt');
 
@@ -212,7 +213,10 @@ app.post("/contact", function(request, response) {
 
 // GET /login
 app.get("/login", function(request, response) {
-    response.render("login.hbs")
+    const model = {
+        csrfToken: request.csrfToken()
+    }
+    response.render("login.hbs", model)
 });
 
 app.post("/login", function(request, response) {
