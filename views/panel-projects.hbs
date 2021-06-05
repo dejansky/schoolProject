@@ -58,9 +58,9 @@
                         <footer class="panel-projects-footer">
                             <input type="hidden" name="_csrf" value="{{../csrfToken}}">
                             <input id="panel-input-button" type="submit" value="UPDATE" formmethod="POST"
-                                formaction="/panel/panel-projects/update">
+                                formaction="/panel/panel-projects/update/project/{{id}}">
                             <input id="panel-input-button" type="submit" value="DELETE" formmethod="POST"
-                                formaction="/panel/panel-projects/delete">
+                                formaction="/panel/panel-projects/delete/project/{{id}}">
                         </footer>
                     </form>
                 </section>

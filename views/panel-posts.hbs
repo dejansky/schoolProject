@@ -59,8 +59,8 @@
                                 </article>
                                 <footer class="panel-posts-footer">
                                     <input type="hidden" name="_csrf" value="{{../csrfToken}}">
-                                    <input type="submit" value="UPDATE" formmethod="POST" formaction="/panel/panel-posts/update">
-                                    <input type="submit" value="DELETE" formmethod="POST" formaction="/panel/panel-posts/delete">
+                                    <input type="submit" value="UPDATE" formmethod="POST" formaction="/panel/panel-posts/update/post/{{id}}">
+                                    <input type="submit" value="DELETE" formmethod="POST" formaction="/panel/panel-posts/delete/post/{{id}}">
                                 </footer>
                             </form>
                         </section>
