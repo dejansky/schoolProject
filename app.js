@@ -82,7 +82,6 @@ app.get("/", function (request, response) {
   errors = [];
   db.getPostsHome(function (error, posts) {
     if (error) {
-      console.log(error);
       errors.push("Internal server error :( Pleas try again later");
       const model = {
         error: true,
@@ -222,8 +221,6 @@ app.post("/login", function (request, response) {
   const entered_password = request.body.entered_password;
 
   const errors = [];
-
-  console.log("ENTERED !! ", entered_username, entered_password);
 
   if (
     entered_username == admin_username &&

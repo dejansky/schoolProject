@@ -45,13 +45,6 @@ db.run(`CREATE TABLE IF NOT EXISTS projects (
         ON DELETE CASCADE
 )`);
 
-db.run(`CREATE TABLE IF NOT EXISTS users (
-    username TEXT PRIMARY KEY UNIQUE,
-    first_name TEXT,
-    last_name TEXT,
-    password TEXT
-)`);
-
 db.run(`CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
@@ -74,7 +67,7 @@ function insert_into_panel_pages() {
 
     db.run(`
         INSERT INTO panel_pages (id, title, subtitle) 
-        SELECT "panel-projects","Projects","Here you can manage your pages"
+        SELECT "panel-projects","Projects","Here you can manage your projects"
         WHERE NOT EXISTS(SELECT 1 FROM panel_pages WHERE id = 'panel-projects')`);
 
     db.run(`
@@ -89,13 +82,6 @@ function insert_into_general_settings() {
         INSERT INTO general_settings (id, site_title, site_subtitle,posts_per_page ,img_url,profile_img_url, global_email, global_name, about) 
         SELECT "master","Dejan Arsenijevic","A river cuts trough a rock, not because of its power but its presistence",3,'https://echangesinternationaux.hec.ca/wp-content/uploads/2016/06/jonko-1205x800.jpg','images/profile_about.jpg','dejanarsen@gmail.com','Dejan Arsenijevic', 'Something about you'
         WHERE NOT EXISTS(SELECT 1 FROM general_settings WHERE id = 'master')`);
-
-}
-
-function insert_into_posts() {
-    db.run(`
-        INSERT INTO posts (post_type, publish_date ,post_title, post_content) 
-        VALUES ('project',02-02-20002,'My first post','Some text') `);
 
 }
 
