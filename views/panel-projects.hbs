@@ -30,7 +30,38 @@
             {{#if success_deleted}}
                 <p id="success">Project deleted!</p>
             {{/if}}
+            <section class="panel-create-project">
+                <div class="column col-6 col-mx-auto" style="text-align:center;">
+                    <h2>Create project post</h2>
+                </div>
+                <form method="POST">
+                    <div id="row">
+                        <p>Title:</p>
+                        <input type="text" name="project_title" placeholder="Enter title"
+                            value="{{create_projects.create_post_title}}">
+                    </div>
+                    <div id="row">
+                        <p>Link:</p>
+                        <input type="text" name="project_link" placeholder="Enter the project link"
+                            value="{{create_projects.create_project_link}}">
+                    </div>
+                    <div id="row">
+                        <p>Thumbnail:</p>
+                        <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link"
+                            value="{{create_projects.create_project_thumbnail}}">
+                    </div>
+                    <article class="panel-create-project-content">
+                        <p>Add Content:</p>
+                        <textarea name="project_content"
+                            id="create-project-textarea">{{create_projects.create_post_content}}</textarea>
+                    </article>
 
+                    <footer class="panel-projects-footer">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                        <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-projects/create">
+                    </footer>
+                </form>
+            </section>
             {{#if projects.length}}
             {{#each projects}}
                 <section class="panel-projects">
@@ -66,38 +97,7 @@
                 </section>
             {{/each}}
             {{/if}}
-            <section class="panel-create-project">
-                <div class="column col-6 col-mx-auto" style="text-align:center;">
-                    <p>CREATE</p>
-                </div>
-                <form method="POST">
-                    <div id="row">
-                        <p>Title:</p>
-                        <input type="text" name="project_title" placeholder="Enter title"
-                            value="{{create_projects.create_post_title}}">
-                    </div>
-                    <div id="row">
-                        <p>Link:</p>
-                        <input type="text" name="project_link" placeholder="Enter the project link"
-                            value="{{create_projects.create_project_link}}">
-                    </div>
-                    <div id="row">
-                        <p>Thumbnail:</p>
-                        <input type="text" name="project_thumbnail" placeholder="Enter the thumbnail link"
-                            value="{{create_projects.create_project_thumbnail}}">
-                    </div>
-                    <article class="panel-create-project-content">
-                        <p>Add Content:</p>
-                        <textarea name="project_content"
-                            id="create-project-textarea">{{create_projects.create_post_content}}</textarea>
-                    </article>
-
-                    <footer class="panel-projects-footer">
-                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                        <input type="submit" value="CREATE" formmethod="POST" formaction="/panel/panel-projects/create">
-                    </footer>
-                </form>
-            </section>
+            
         {{/if}}
     </div>
 </section>

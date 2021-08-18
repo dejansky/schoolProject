@@ -630,7 +630,7 @@ body {
 
 .panel-create-post {
     text-align: left;
-    background-color: lightblue;
+    background-color: lightgrey;
     margin: 0px;
     margin-bottom: 10px;
     width: 100%;
@@ -783,7 +783,7 @@ div#div.div div.div {
 
 .panel-create-project {
     text-align: left;
-    background-color: lightblue;
+    background-color: lightgrey;
     margin: 0px;
     margin-bottom: 10px;
     width: 100%;
